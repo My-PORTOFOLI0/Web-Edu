@@ -870,8 +870,15 @@
                 <h2 class="modal-title" id="siswaModalTitle">Tambah Siswa</h2>
                 <button class="modal-close" data-modal="siswaModal"><i class="fas fa-times"></i></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body student-modal-body">
                 <form id="siswaForm" autocomplete="off">
+                    <div class="student-form-intro">
+                        <span class="student-form-intro-icon"><i class="fas fa-user-pen"></i></span>
+                        <div>
+                            <strong>Informasi akun siswa</strong>
+                            <span>Lengkapi data utama dan akses login siswa dengan rapi.</span>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Nama Lengkap *</label>
@@ -891,7 +898,7 @@
                         <div class="form-group">
                             <label id="siswaPasswordLabel">Password *</label>
                             <input type="password" id="siswaPassword" minlength="6" autocomplete="new-password">
-                            <small class="form-hint" id="siswaPasswordHint">Minimal 6 karakter.</small>
+                            <small class="form-hint" id="siswaPasswordHint">Minimal 6 karakter. Password lama tidak dapat dipulihkan.</small>
                         </div>
                     </div>
 
@@ -928,9 +935,9 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-modal="siswaModal">Batal</button>
-                <button class="btn btn-primary" id="saveSiswaBtn">Simpan Siswa</button>
+            <div class="modal-footer student-modal-footer">
+                <button class="btn btn-secondary" type="button" data-modal="siswaModal"><i class="fas fa-xmark"></i> Batal</button>
+                <button class="btn btn-primary" type="button" id="saveSiswaBtn"><i class="fas fa-save"></i> Simpan Siswa</button>
             </div>
         </div>
     </div>

@@ -221,10 +221,19 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 16px;
+  min-height: 226px;
+  padding: 18px;
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background: var(--bg-light);
+  border-radius: 16px;
+  background: linear-gradient(145deg, var(--card-bg), var(--bg-light));
+  box-shadow: 0 5px 16px rgba(15, 45, 80, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.admin-student-card:hover {
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 12px 25px rgba(15, 45, 80, 0.1);
+  transform: translateY(-2px);
 }
 
 .admin-student-card-head {
@@ -265,7 +274,10 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  margin: 15px 0;
+  margin: 18px 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .admin-student-card-data > div:last-child {
@@ -296,11 +308,21 @@
 }
 
 .admin-student-card-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 7px;
   margin-top: auto;
   padding-top: 12px;
-  border-top: 1px solid var(--border-color);
+}
+
+.admin-student-card-actions .btn {
+  justify-content: center;
+  min-height: 36px;
+  font-size: 11px;
+}
+
+.admin-student-card-actions .btn i {
+  font-size: 11px;
 }
 
 .admin-student-class-empty {

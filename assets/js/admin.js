@@ -2132,8 +2132,6 @@
                             <div><dt>Sekolah</dt><dd>${escapeHTML(student?.sekolah || "-")}</dd></div>
                         </dl>
 
-                        ${renderStudentPasswordControl(student)}
-
                         <div class="admin-student-card-actions">
                             <button
                                 type="button"

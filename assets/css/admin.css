@@ -775,6 +775,103 @@ body {
     border-top: 1px solid var(--border-color);
 }
 
+.student-modal-body {
+    padding: 22px 24px;
+}
+
+.student-form-intro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 13px 15px;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #1e3a8a;
+}
+
+.student-form-intro-icon {
+    display: grid;
+    flex: 0 0 36px;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.student-form-intro strong,
+.student-form-intro span {
+    display: block;
+}
+
+.student-form-intro strong {
+    font-size: 13px;
+}
+
+.student-form-intro span {
+    margin-top: 2px;
+    color: #475569;
+    font-size: 11px;
+}
+
+#siswaModal .form-row {
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+#siswaModal .form-group {
+    gap: 7px;
+}
+
+#siswaModal .form-group > label {
+    color: var(--text-main);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#siswaModal input,
+#siswaModal select {
+    min-height: 42px;
+    border-radius: 9px;
+}
+
+#siswaModal .form-hint,
+#siswaModal #passwordHelp {
+    line-height: 1.45;
+}
+
+.student-modal-footer {
+    padding: 16px 24px;
+}
+
+.student-modal-footer .btn {
+    min-width: 130px;
+    justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .student-modal-body {
+        padding: 18px;
+    }
+
+    #siswaModal .form-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .student-modal-footer {
+        flex-direction: column-reverse;
+        padding: 14px 18px 18px;
+    }
+
+    .student-modal-footer .btn {
+        width: 100%;
+    }
+}
+
 #modulModal .modal-content {
     max-width: 820px;
 }
