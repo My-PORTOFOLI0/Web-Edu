@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5b5bd6">
+  <title>Belajar Sambil Bermain | EduSky</title>
+  <script>
+    try {
+      if (localStorage.getItem("edusky_theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    } catch (error) {
+      // Gunakan tema terang jika penyimpanan browser tidak tersedia.
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/site-navbar.css?v=20260718-1">
+  <link rel="stylesheet" href="../../assets/css/game.css?v=20260723-2">
+  <link rel="stylesheet" href="../../assets/css/game-puzzle.css?v=20260722-1">
+  <link rel="stylesheet" href="../../assets/css/game-adventure.css?v=20260723-1">
+  <link rel="stylesheet" href="../../assets/css/game-theme.css?v=20260723-2">
+</head>
+<body class="has-site-navbar game-page">
+  <nav class="navbar site-navbar" aria-label="Navigasi utama">
+    <div class="nav-container">
+      <a class="nav-brand" href="../home/index.html" aria-label="EduSky - Beranda">
+        <img src="https://placehold.co/100x100/38BDF8/FFFFFF?text=Logo" alt="Logo EduSky">
+        <span class="nav-brand-name">EduSky</span><span class="nav-badge" data-nav-grade>SD</span>
+      </a>
+      <div class="mobile-menu-overlay"></div>
+      <ul class="nav-menu">
+        <button class="close-mobile-menu" type="button" aria-label="Tutup menu"><span aria-hidden="true">&times;</span></button>
+        <li><a class="nav-item" href="../home/index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a class="nav-item" href="../modul/index.html"><i class="fas fa-book-open"></i><span>Modul</span></a></li>
+        <li><a class="nav-item" href="../kelas/index.html"><i class="fas fa-clipboard-list"></i><span>Kelas</span></a></li>
+        <li><a class="nav-item active" href="./index.html" aria-current="page"><i class="fas fa-gamepad"></i><span>Bermain</span></a></li>
+        <li><a class="nav-item" href="../profil/index.html"><i class="far fa-user"></i><span>Profil</span></a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="game-theme-toggle" id="gameThemeToggle" type="button" aria-label="Aktifkan tema gelap" aria-pressed="false" title="Aktifkan tema gelap">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+        <a class="user-profile-btn" href="../profil/index.html"><img data-nav-avatar src="" alt="Foto siswa"><span class="nav-user-name" data-nav-user-name>Siswa</span></a>
+        <button class="mobile-menu-btn" type="button" aria-label="Buka menu"><span aria-hidden="true">&#9776;</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="game-shell">
+    <section class="game-hero">
+      <div class="hero-copy">
+        <span class="hero-pill"><i class="fas fa-sparkles"></i> Arena Kelas 5 SD</span>
+        <h1>Belajar seru, naik level setiap hari!</h1>
+        <p>Asah Matematika dan Bahasa Inggris lewat tantangan singkat. Kumpulkan bintang dan buka level berikutnya.</p>
+        <div class="hero-stats">
+          <div><strong id="totalStars">0</strong><span><i class="fas fa-star"></i> Bintang</span></div>
+          <div><strong id="totalCoins">0</strong><span><i class="fas fa-coins"></i> Koin</span></div>
+          <div><strong id="completedLevels">0</strong><span><i class="fas fa-trophy"></i> Level selesai</span></div>
+          <div><strong id="bestScore">0</strong><span><i class="fas fa-bolt"></i> Skor terbaik</span></div>
+        </div>
+      </div>
+      <div class="hero-mascot" aria-hidden="true"><span>🚀</span><small>Ayo mulai!</small></div>
+    </section>
+
+    <section class="daily-mission-section" aria-labelledby="dailyMissionTitle">
+      <header class="daily-mission-heading">
+        <div class="daily-mission-title"><span class="daily-mission-icon"><i class="fas fa-calendar-check"></i></span><div><span>Misi belajar hari ini</span><h2 id="dailyMissionTitle">Tiga langkah kecil setiap hari</h2><p>Misi diperbarui setiap hari dan hadiahnya masuk otomatis.</p></div></div>
+        <div class="learning-streak"><i class="fas fa-fire"></i><span><strong id="learningStreak">0 hari</strong><small>Rangkaian belajar</small></span></div>
+      </header>
+      <div class="daily-mission-grid" id="dailyMissions" aria-live="polite">
+        <div class="mission-loading"><i class="fas fa-circle-notch fa-spin"></i> Menyiapkan misi harian…</div>
+      </div>
+    </section>
+
+    <section class="game-toolbar" aria-label="Pilih mata pelajaran">
+      <div class="subject-tabs" id="subjectTabs">
+        <button class="active" data-subject="Matematika"><span>🔢</span> Matematika</button>
+        <button data-subject="Bahasa Inggris"><span>🔤</span> Bahasa Inggris</button>
+      </div>
+      <div class="legend"><span><i class="dot easy"></i> Mudah</span><span><i class="dot medium"></i> Sedang</span><span><i class="dot hard"></i> Sulit</span></div>
+    </section>
+
+    <section class="level-section" aria-labelledby="levelTitle">
+      <div class="section-heading"><div><span>Jalur petualangan</span><h2 id="levelTitle">Level Matematika</h2></div><p>Selesaikan berurutan untuk membuka semuanya.</p></div>
+      <div class="level-path" id="levelPath"><div class="game-loading"><i class="fas fa-circle-notch fa-spin"></i> Menyiapkan arena…</div></div>
+    </section>
+
+    <section class="achievement-section" aria-labelledby="achievementTitle">
+      <div class="section-heading achievement-heading"><div><span>Koleksi prestasi</span><h2 id="achievementTitle">Badge Petualang</h2></div><p>Terbuka otomatis dari progres belajarmu.</p></div>
+      <div class="achievement-grid" id="achievementGrid"></div>
+    </section>
+  </main>
+
+  <div class="play-overlay" id="playOverlay" aria-hidden="true">
+    <div class="play-dialog" role="dialog" aria-modal="true" aria-labelledby="playTitle">
+      <header class="play-header">
+        <button class="icon-close" id="closeGame" aria-label="Keluar dari permainan"><i class="fas fa-times"></i></button>
+        <div class="play-meta"><span id="playLevel">Level 1</span><strong id="playTitle">Game</strong></div>
+        <div class="timer" id="timer"><i class="far fa-clock"></i> <span>90</span></div>
+      </header>
+      <div class="question-progress"><div id="questionBar"></div></div>
+      <div class="question-count" id="questionCount">Soal 1 dari 3</div>
+      <section class="question-stage" id="questionStage"></section>
+      <footer class="play-footer" id="playFooter"><div id="answerFeedback" class="answer-feedback"></div><button id="nextQuestion" class="next-button" disabled>Periksa Jawaban</button></footer>
+    </div>
+  </div>
+
+  <div class="result-overlay" id="resultOverlay" aria-hidden="true">
+    <div class="result-card" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+      <div class="result-icon" id="resultIcon">🏆</div><span class="result-kicker">Tantangan selesai</span>
+      <h2 id="resultTitle">Hebat!</h2><p id="resultMessage"></p>
+      <div class="result-stars" id="resultStars" aria-label="Bintang diperoleh"></div>
+      <div class="result-score"><span>Nilai kamu</span><strong id="resultScore">0</strong></div>
+      <div class="result-coins"><span><i class="fas fa-coins"></i> Hadiah petualangan</span><strong>+<span id="resultCoins">0</span> koin</strong></div>
+      <div class="result-actions"><button id="retryGame" class="button-secondary"><i class="fas fa-redo"></i> Main Lagi</button><button id="finishGame" class="button-primary">Kembali ke Level</button></div>
+    </div>
+  </div>
+
+  <div class="game-toast" id="gameToast" role="status"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../assets/js/app-settings.js?v=20260722-2"></script>
+  <script src="../../assets/js/site-navbar.js?v=20260718-1"></script>
+  <script src="../../assets/js/game-store.js?v=20260723-3"></script>
+  <script src="../../assets/js/student-game.js?v=20260723-3"></script>
+</body>
+</html>

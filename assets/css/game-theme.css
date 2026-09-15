@@ -1,0 +1,243 @@
+.game-theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  background: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.game-theme-toggle:hover {
+  color: #4f46e5;
+  background: #eef2ff;
+  transform: rotate(-10deg);
+}
+
+body.game-page,
+.game-page .level-section,
+.game-page .level-card,
+.game-page .subject-tabs,
+.game-page .play-dialog,
+.game-page .result-card,
+.game-page .answer-option,
+.game-page .play-footer,
+.game-page .puzzle-back {
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e2e8f0;
+  --muted: #94a3b8;
+  --surface: #111c33;
+  --line: #334155;
+  --page: #07111f;
+  --nav-bg: #0f172a;
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --bg-light: #172033;
+  --border-color: #334155;
+  --primary-light: #1e293b;
+}
+
+html[data-theme="dark"] body.game-page {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(14, 116, 144, 0.22), transparent 31%),
+    radial-gradient(circle at 90% 12%, rgba(91, 33, 182, 0.22), transparent 28%),
+    #07111f;
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .site-navbar {
+  background: #0f172a;
+  color: #e2e8f0;
+  box-shadow: 0 1px 0 #293548, 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] .site-navbar .nav-brand-name {
+  color: #7dd3fc;
+}
+
+html[data-theme="dark"] .site-navbar .user-profile-btn,
+html[data-theme="dark"] .game-theme-toggle {
+  border-color: #334155;
+  background: #172033;
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .game-theme-toggle:hover {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
+html[data-theme="dark"] .game-hero {
+  background: linear-gradient(125deg, #312e81, #4338ca 55%, #1d4ed8);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+html[data-theme="dark"] .subject-tabs,
+html[data-theme="dark"] .level-section {
+  border-color: #293548;
+  background: rgba(15, 23, 42, 0.88);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+}
+
+html[data-theme="dark"] .subject-tabs button {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .subject-tabs button.active {
+  color: #fff;
+  background: #4f46e5;
+}
+
+html[data-theme="dark"] .section-heading h2,
+html[data-theme="dark"] .level-card h3,
+html[data-theme="dark"] .play-meta strong,
+html[data-theme="dark"] .question-stage h2,
+html[data-theme="dark"] .result-card h2,
+html[data-theme="dark"] .puzzle-heading h2 {
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .section-heading p,
+html[data-theme="dark"] .level-card p,
+html[data-theme="dark"] .level-info,
+html[data-theme="dark"] .question-count,
+html[data-theme="dark"] .scramble-help,
+html[data-theme="dark"] .result-card p,
+html[data-theme="dark"] .puzzle-heading p,
+html[data-theme="dark"] .puzzle-status {
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .level-card {
+  border-color: #334155;
+  background: #111c2f;
+}
+
+html[data-theme="dark"] .level-card:not(.locked):hover {
+  border-color: #818cf8;
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .level-card.completed {
+  border-color: #166534;
+  background: linear-gradient(160deg, #111c2f, #0c291f);
+}
+
+html[data-theme="dark"] .level-card.locked {
+  background: #0d1728;
+}
+
+html[data-theme="dark"] .level-number {
+  background: #252a5e;
+  color: #c7d2fe;
+}
+
+html[data-theme="dark"] .level-card.completed .level-number {
+  background: #14532d;
+  color: #bbf7d0;
+}
+
+html[data-theme="dark"] .level-lock,
+html[data-theme="dark"] .level-progress,
+html[data-theme="dark"] .question-progress {
+  background: #334155;
+  color: #94a3b8;
+}
+
+html[data-theme="dark"] .play-dialog,
+html[data-theme="dark"] .result-card {
+  background: #0f172a;
+  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.55);
+}
+
+html[data-theme="dark"] .play-header,
+html[data-theme="dark"] .play-footer {
+  border-color: #293548;
+  background: #111c2f;
+}
+
+html[data-theme="dark"] .icon-close {
+  background: #1e293b;
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .timer,
+html[data-theme="dark"] .result-score {
+  background: #252a5e;
+  color: #c7d2fe;
+}
+
+html[data-theme="dark"] .answer-option {
+  border-color: #334155;
+  background: #111c2f;
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .answer-option b {
+  background: #1e293b;
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .answer-option:hover,
+html[data-theme="dark"] .answer-option.selected {
+  border-color: #818cf8;
+  background: #252a5e;
+}
+
+html[data-theme="dark"] .answer-option.correct {
+  border-color: #22c55e;
+  background: #123522;
+}
+
+html[data-theme="dark"] .answer-option.wrong {
+  border-color: #ef4444;
+  background: #3b1720;
+}
+
+html[data-theme="dark"] .scramble-word {
+  border-color: #475569;
+}
+
+html[data-theme="dark"] .letter-button {
+  background: #252a5e;
+  color: #c7d2fe;
+  box-shadow: 0 4px 0 #3730a3;
+}
+
+html[data-theme="dark"] .puzzle-front {
+  border-color: #6366f1;
+  background: linear-gradient(145deg, #4338ca, #5b21b6);
+}
+
+html[data-theme="dark"] .puzzle-back {
+  border-color: #6366f1;
+  background: #252a5e;
+  color: #e0e7ff;
+}
+
+html[data-theme="dark"] .puzzle-card.matched .puzzle-back {
+  border-color: #22c55e;
+  background: #123522;
+  color: #bbf7d0;
+}
+
+html[data-theme="dark"] .button-secondary {
+  background: #1e293b;
+  color: #cbd5e1;
+}
+
+@media (max-width: 900px) {
+  .game-theme-toggle {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+}

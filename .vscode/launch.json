@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Run Web EDU di HP Android USB",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "lsof -ti tcp:8080 | xargs kill -9 2>/dev/null; python3 -m http.server 8080 --bind 127.0.0.1 >/tmp/webedu-server.log 2>&1 & adb reverse tcp:8080 tcp:8080 && adb shell am start -a android.intent.action.VIEW -d http://localhost:8080/index.html",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch Chrome Laptop",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:8080/index.html",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "editor-browser",
+      "request": "launch",
+      "name": "Open index.html",
+      "url": "file:///Users/macbookair/Documents/WEB%20EDU/index.html"
+    }
+  ]
+}

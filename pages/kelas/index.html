@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Informasi kelas dan jadwal belajar siswa EduSky." />
+  <title>Kelas | EduSky Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../assets/css/simple-page.css" />
+  <link rel="stylesheet" href="../../assets/css/kelas.css?v=20260718-2" />
+  <link rel="stylesheet" href="../../assets/css/site-navbar.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/student-welcome.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/site-notifications.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/student-task-classes.css?v=20260722-1" />
+  <link rel="stylesheet" href="../../assets/css/kelas-task-panel.css?v=20260722-1" />
+</head>
+<body class="page-kelas has-site-navbar">
+  <nav class="navbar site-navbar" aria-label="Navigasi utama">
+    <div class="nav-container">
+      <a class="nav-brand" href="../home/index.html" aria-label="EduSky - Beranda">
+        <img src="https://placehold.co/100x100/38BDF8/FFFFFF?text=Logo" alt="Logo EduSky" />
+        <span class="nav-brand-name">EduSky</span>
+        <span class="nav-badge" data-nav-grade>SD</span>
+      </a>
+
+      <div class="mobile-menu-overlay"></div>
+      <ul class="nav-menu">
+        <button class="close-mobile-menu" type="button" aria-label="Tutup menu">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <li><a class="nav-item" href="../home/index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a class="nav-item" href="../modul/index.html"><i class="fas fa-compass"></i><span>Modul</span></a></li>
+        <li><a class="nav-item active" href="./index.html" aria-current="page"><i class="fas fa-clipboard-list"></i><span>Kelas</span></a></li>
+        <li><a class="nav-item" href="../game/index.html"><i class="fas fa-gamepad"></i><span>Bermain</span></a></li>
+        <li><a class="nav-item" href="../profil/index.html"><i class="far fa-user"></i><span>Profil</span></a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="notification-btn" href="../home/index.html" aria-label="Notifikasi">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </a>
+        <a class="user-profile-btn" href="../profil/index.html" aria-label="Buka profil">
+          <img data-nav-avatar src="" alt="Foto profil siswa" />
+          <span class="nav-user-name" data-nav-user-name>Siswa</span>
+        </a>
+        <button class="mobile-menu-btn" type="button" aria-label="Buka menu">
+          <span aria-hidden="true">&#9776;</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="student-welcome" data-notification-href="../home/index.html" aria-label="Ringkasan siswa">
+    <div class="student-welcome-inner">
+      <div class="student-welcome-profile">
+        <div class="student-welcome-avatar-wrap" aria-hidden="true">
+          <div class="student-welcome-avatar" data-student-avatar>SW</div>
+          <span class="student-welcome-class" data-student-class>-</span>
+        </div>
+        <div class="student-welcome-copy">
+          <p class="student-welcome-eyebrow">Selamat datang,</p>
+          <h1 class="student-welcome-name" data-student-name>Siswa EduSky</h1>
+          <div class="student-welcome-progress" aria-label="Progres kelas">
+            <span class="active">1</span>
+            <span class="active">2</span>
+            <span class="active">3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+          </div>
+        </div>
+      </div>
+      <div class="student-welcome-actions">
+        <button class="student-welcome-action" type="button" data-student-theme aria-label="Ganti tema">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9c0-.4 0-.8-.1-1.2A7 7 0 0 1 13.2 3H12Z"></path>
+          </svg>
+        </button>
+        <button class="student-welcome-action" type="button" data-student-notifications aria-label="Buka notifikasi">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+            <path d="M10 21h4"></path>
+          </svg>
+          <span class="student-welcome-notification-dot"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell class-page">
+    <section class="phone">
+      <div class="scroll-content">
+        <section class="class-hero reveal">
+          <div>
+            <span class="class-label">Kelas aktif</span>
+            <h2 data-student-class-title>Kelas Siswa</h2>
+            <p>Ikuti pembelajaran, lihat jadwal, dan buka materi dari satu tempat.</p>
+          </div>
+          <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+        </section>
+
+        <section class="class-summary" aria-label="Ringkasan kelas">
+          <article>
+            <i class="fas fa-user-tie"></i>
+            <span>Wali Kelas</span>
+            <strong>Guru EduSky</strong>
+          </article>
+          <article>
+            <i class="fas fa-users"></i>
+            <span>Teman Kelas</span>
+            <strong>30 siswa</strong>
+          </article>
+          <article>
+            <i class="fas fa-book"></i>
+            <span>Mata Pelajaran</span>
+            <strong>8 pelajaran</strong>
+          </article>
+        </section>
+
+        <section class="schedule-card">
+          <div class="section-heading">
+            <div>
+              <span>Jadwal belajar</span>
+              <h2>Hari ini</h2>
+            </div>
+            <a href="../modul/index.html">Buka Modul <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="schedule-list">
+            <article>
+              <time>08.00</time>
+              <span class="schedule-dot blue"></span>
+              <div><strong>Matematika</strong><span>Materi dan latihan kelas</span></div>
+            </article>
+            <article>
+              <time>10.00</time>
+              <span class="schedule-dot green"></span>
+              <div><strong>Bahasa Indonesia</strong><span>Membaca dan memahami teks</span></div>
+            </article>
+            <article>
+              <time>13.00</time>
+              <span class="schedule-dot orange"></span>
+              <div><strong>Ilmu Pengetahuan Alam</strong><span>Video pembelajaran</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="kelas-task-panel" aria-labelledby="kelasTaskTitle">
+          <div class="section-heading kelas-task-heading">
+            <div><span>Tugas pembelajaran</span><h2 id="kelasTaskTitle">Folder Tugas Kelas</h2></div>
+            <div class="kelas-task-filters" aria-label="Filter status tugas">
+              <button type="button" class="active" data-student-task-filter="Semua">Semua</button>
+              <button type="button" data-student-task-filter="Baru">Baru</button>
+              <button type="button" data-student-task-filter="Sedang dikerjakan">Dikerjakan</button>
+              <button type="button" data-student-task-filter="Selesai">Selesai</button>
+            </div>
+          </div>
+
+          <div id="task-list-view">
+            <section class="student-grade-summary" id="student-grade-summary" aria-label="Ringkasan nilai" hidden></section>
+            <div id="class-tasks-container" aria-live="polite">
+              <div class="student-class-task-empty"><i class="fas fa-spinner fa-spin"></i><strong>Memuat folder tugas kelas...</strong></div>
+            </div>
+          </div>
+
+          <div id="task-submit-view" class="student-task-detail hidden">
+            <button class="student-task-back" type="button" onclick="closeTaskSubmit()"><i class="fas fa-arrow-left"></i> Kembali ke folder kelas</button>
+            <div class="student-task-detail-head">
+              <div><span class="student-task-subject" id="submit-task-mapel">Mata Pelajaran</span><h2 id="submit-task-title">Judul Tugas</h2></div>
+              <strong id="submit-task-due"><i class="fas fa-clock"></i> Tenggat</strong>
+            </div>
+            <p class="student-task-description" id="submit-task-desc"></p>
+            <label class="student-task-field"><span>Jawaban / Catatan</span><textarea id="task-answer" rows="5" placeholder="Tuliskan jawaban atau catatan untuk guru..."></textarea></label>
+            <div class="student-task-field"><span>Lampiran (opsional)</span><label class="student-task-upload" for="fake-file-input"><i class="fas fa-cloud-arrow-up"></i><strong>Pilih file tugas</strong><small>PDF, JPG, PNG, atau DOCX • maksimal 5 MB</small></label><input type="file" id="fake-file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png,.docx,application/pdf,image/jpeg,image/png,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="handleFakeUpload(this)"><div id="upload-file-list"></div></div>
+            <button class="student-task-submit" id="submit-task-button" type="button" onclick="submitTask()"><i class="fas fa-paper-plane"></i> Kumpulkan Tugas</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div class="student-task-toast" id="studentTaskToast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../assets/js/app-settings.js?v=20260722-2"></script>
+  <script src="../../assets/js/site-navbar.js?v=20260717-1"></script>
+  <script src="../../assets/js/student-welcome.js?v=20260717-2"></script>
+  <script src="../../assets/js/site-notifications.js?v=20260717-1"></script>
+  <script src="../../assets/js/user-sync.js?v=20260717-3"></script>
+  <script src="../../assets/js/student-tugas.js?v=20260723-4"></script>
+</body>
+</html>

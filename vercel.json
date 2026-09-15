@@ -1,0 +1,39 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "bash scripts/build-static.sh",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/admin", "destination": "/pages/admin-login/index.html", "permanent": false },
+    { "source": "/login", "destination": "/index.html", "permanent": false },
+    { "source": "/home", "destination": "/pages/home/index.html", "permanent": false },
+    { "source": "/modul", "destination": "/pages/modul/index.html", "permanent": false },
+    { "source": "/kelas", "destination": "/pages/kelas/index.html", "permanent": false },
+    { "source": "/bermain", "destination": "/pages/game/index.html", "permanent": false },
+    { "source": "/profil", "destination": "/pages/profil/index.html", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), geolocation=(), microphone=()" }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    }
+  ]
+}

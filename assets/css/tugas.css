@@ -1,0 +1,9 @@
+/* Tugas page styles */
+.hero h2 {
+  margin-bottom: 12px;
+}
+.soft-label {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}

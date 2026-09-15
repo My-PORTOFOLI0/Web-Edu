@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <meta name="robots" content="noindex, nofollow">
+    <title>Login Admin - EduSky Learning</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="../../assets/css/admin-login.css?v=20260719-8">
+    
+</head>
+
+<body>
+    <main class="login-page">
+        <!-- BAGIAN INFORMASI -->
+        <section class="login-information">
+            <div class="information-content">
+                <div class="information-brand">
+                    <div class="information-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+
+                    <div>
+                        <h2>EduSky Learning</h2>
+                        <p>Administrator Dashboard</p>
+                    </div>
+                </div>
+
+                <div class="information-kicker">
+                    <i class="fas fa-shield-halved"></i>
+                    Portal Pengelolaan Sekolah
+                </div>
+
+                <h1>
+                    Kelola pembelajaran dalam satu dashboard.
+                </h1>
+
+                <p class="information-description">
+                    Masuk sebagai administrator untuk mengelola
+                    akun siswa, modul pembelajaran, tugas,
+                    profil, laporan, dan pengaturan EduSky.
+                </p>
+
+                <div class="information-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+
+                        <span>
+                            Kelola akun dan profil siswa
+                        </span>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+
+                        <span>
+                            Atur modul dan materi pembelajaran
+                        </span>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+
+                        <span>
+                            Pantau aktivitas dan perkembangan siswa
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN LOGIN -->
+        <section class="login-form-section">
+            <div class="login-card">
+                <div class="mobile-brand">
+                    <div class="mobile-brand-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+
+                    <div>
+                        <h2>EduSky Admin</h2>
+                        <p>Learning Management System</p>
+                    </div>
+                </div>
+
+                <div class="login-heading">
+                    <div class="admin-label">
+                        <i class="fas fa-shield-alt"></i>
+                        Akses Administrator
+                    </div>
+
+                    <h2>Selamat Datang</h2>
+
+                    <p>
+                        Masukkan username dan password administrator
+                        untuk membuka dashboard EduSky.
+                    </p>
+                </div>
+
+                <div
+                    id="login-message"
+                    class="login-message"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
+
+                <form
+                    id="admin-login-form"
+                    novalidate
+                >
+                    <div class="form-group">
+                        <label for="admin-username">
+                            Username Admin
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+
+                            <input
+                                type="text"
+                                id="admin-username"
+                                placeholder="Masukkan username admin"
+                                autocomplete="username"
+                                maxlength="50"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin-password">
+                            Password Admin
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+
+                            <input
+                                type="password"
+                                id="admin-password"
+                                placeholder="Masukkan password admin"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="toggle-password"
+                                class="toggle-password"
+                                aria-label="Tampilkan password"
+                            >
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-label">
+                            <input
+                                type="checkbox"
+                                id="remember-admin"
+                            >
+
+                            <span>Ingat username</span>
+                        </label>
+
+                        <button
+                            type="button"
+                            id="forgot-password"
+                            class="forgot-button"
+                        >
+                            Lupa password?
+                        </button>
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="login-button"
+                        class="login-button"
+                    >
+                        <span>Masuk ke Dashboard</span>
+
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <p class="account-switch">
+                    <a href="../../index.html">Kembali ke login siswa</a>
+                </p>
+
+                <div class="security-information">
+                    <i class="fas fa-lock"></i>
+
+                    <span>
+                        Halaman khusus administrator EduSky
+                    </span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../assets/js/app-settings.js?v=20260722-2"></script>
+    <script src="../../assets/js/admin-login.js?v=20260719-1"></script>
+</body>
+</html>

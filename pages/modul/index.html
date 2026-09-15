@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071a2d" />
+  <meta
+    name="description"
+    content="Perpustakaan modul digital EduSky untuk mencari, membaca, dan mengunduh modul dari guru."
+  />
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("edusky_theme") || localStorage.getItem("edusky_modul_theme");
+      if (savedTheme === "dark") document.documentElement.setAttribute("data-theme", "dark");
+    } catch (error) {
+      // Halaman tetap menggunakan tema terang jika penyimpanan browser tidak tersedia.
+    }
+  </script>
+  <title>Perpustakaan Modul Digital - EduSky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../assets/css/pdf-reader.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/modul.css?v=20260718-12" />
+  <link rel="stylesheet" href="../../assets/css/site-navbar.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/site-notifications.css?v=20260718-1" />
+</head>
+<body class="page-modul has-site-navbar">
+  <nav class="navbar site-navbar" aria-label="Navigasi utama">
+    <div class="nav-container">
+      <a class="nav-brand" href="../home/index.html" aria-label="EduSky - Beranda">
+        <img src="https://placehold.co/100x100/38BDF8/FFFFFF?text=Logo" alt="Logo EduSky" />
+        <span class="nav-brand-name">EduSky</span>
+        <span class="nav-badge" data-nav-grade>SD</span>
+      </a>
+
+      <div class="mobile-menu-overlay"></div>
+      <ul class="nav-menu">
+        <button class="close-mobile-menu" type="button" aria-label="Tutup menu">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <li><a class="nav-item" href="../home/index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a class="nav-item active" href="./index.html" aria-current="page"><i class="fas fa-book-open"></i><span>Modul</span></a></li>
+        <li><a class="nav-item" href="../kelas/index.html"><i class="fas fa-clipboard-list"></i><span>Kelas</span></a></li>
+        <li><a class="nav-item" href="../game/index.html"><i class="fas fa-gamepad"></i><span>Bermain</span></a></li>
+        <li><a class="nav-item" href="../profil/index.html"><i class="far fa-user"></i><span>Profil</span></a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="notification-btn" href="../home/index.html" aria-label="Notifikasi">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </a>
+        <a class="user-profile-btn" href="../profil/index.html" aria-label="Buka profil">
+          <img data-nav-avatar src="" alt="Foto profil siswa" />
+          <span class="nav-user-name" data-nav-user-name>Siswa</span>
+        </a>
+        <button class="mobile-menu-btn" type="button" aria-label="Buka menu">
+          <span aria-hidden="true">&#9776;</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="app-shell">
+    <!-- HEADER -->
+    <header class="topbar">
+      <div class="profile">
+        <div class="avatar-wrap" aria-hidden="true">
+          <div class="avatar" id="studentAvatar">SW</div>
+          <span class="class-badge" id="studentClassBadge">-</span>
+        </div>
+
+        <div class="profile-copy">
+          <p class="eyebrow">Selamat datang,</p>
+          <h1 id="studentName">Siswa EduSky</h1>
+          <div class="student-progress" aria-label="Progress kelas">
+            <span class="active">1</span>
+            <span class="active">2</span>
+            <span class="active">3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="themeButton" aria-label="Ganti tema" title="Ganti tema">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9c0-.4 0-.8-.1-1.2A7 7 0 0 1 13.2 3H12Z"/>
+          </svg>
+        </button>
+
+        <button class="icon-btn notification-button" id="notificationButton" aria-label="Notifikasi">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+            <path d="M10 21h4"/>
+          </svg>
+          <span class="notification-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="library-main">
+      <section class="hero-card library-hero">
+        <div class="hero-copy">
+          <div class="mini-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/>
+              <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/>
+            </svg>
+          </div>
+
+          <div>
+            <p class="eyebrow dark">Koleksi belajar siswa</p>
+            <h2>Perpustakaan Modul Digital</h2>
+            <p>Cari, baca, simpan pilihan, dan unduh modul PDF yang dibagikan guru.</p>
+          </div>
+        </div>
+
+        <div class="grade-select grade-locked" aria-label="Kelas siswa ditentukan oleh admin">
+          <span>Kelas dari admin</span>
+          <strong><i class="fas fa-lock" aria-hidden="true"></i> <b id="gradeDisplay">-</b></strong>
+          <input id="gradeSelect" type="hidden" value="" />
+        </div>
+      </section>
+
+      <section class="summary-grid library-summary" aria-label="Ringkasan perpustakaan">
+        <article class="summary-card">
+          <span class="summary-icon blue" aria-hidden="true">
+            <i class="fas fa-book-open"></i>
+          </span>
+          <div>
+            <strong id="totalModule">0</strong>
+            <span>Total koleksi</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <span class="summary-icon green" aria-hidden="true">
+            <i class="fas fa-folder-open"></i>
+          </span>
+          <div>
+            <strong id="totalSubjects">0</strong>
+            <span>Mata pelajaran</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <span class="summary-icon orange" aria-hidden="true">
+            <i class="fas fa-bookmark"></i>
+          </span>
+          <div>
+            <strong id="favoriteModuleCount">0</strong>
+            <span>Modul pilihan</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="library-category-panel" aria-labelledby="categoryTitle">
+        <div class="library-section-heading">
+          <div>
+            <p class="eyebrow dark">Jelajahi rak</p>
+            <h2 id="categoryTitle">Mata Pelajaran</h2>
+          </div>
+          <div class="library-category-heading-actions">
+            <span id="categorySummary">0 kategori</span>
+            <div class="library-scroll-controls" aria-label="Geser mata pelajaran">
+              <button type="button" id="categoryScrollPrev" aria-label="Geser mata pelajaran ke kiri">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+              </button>
+              <button type="button" id="categoryScrollNext" aria-label="Geser mata pelajaran ke kanan">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="library-categories" id="libraryCategories"></div>
+      </section>
+
+      <section class="tools-panel library-tools" aria-label="Pencarian dan filter modul">
+        <div class="library-search-row">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m20 20-3.6-3.6"/>
+            </svg>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Cari judul, mata pelajaran, atau kata kunci..."
+              autocomplete="off"
+            />
+            <button id="clearSearch" aria-label="Hapus pencarian" hidden>&times;</button>
+          </div>
+        </div>
+        <div class="filter-row" id="subjectFilters" aria-label="Filter dan urutan modul">
+          <button class="filter-chip active" data-library-filter="all">Semua <b>0</b></button>
+          <button class="filter-chip" data-library-filter="favorites">Pilihan Saya <b>0</b></button>
+          <button class="filter-chip" data-library-sort="oldest">Terlama</button>
+          <button class="filter-chip active" data-library-sort="newest">Terbaru</button>
+        </div>
+      </section>
+
+      <div class="library-results-heading">
+        <div>
+          <p class="eyebrow dark">Rak modul</p>
+          <h2 id="resultTitle">Semua Modul</h2>
+        </div>
+        <span id="resultCount">0 modul ditemukan</span>
+      </div>
+
+      <div class="module-loading" id="moduleLoading">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <p>Mengambil koleksi terbaru dari Supabase...</p>
+      </div>
+
+      <div id="moduleContainer" class="module-container"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-illustration">🔎</div>
+        <h3>Koleksi tidak ditemukan</h3>
+        <p>Coba kata kunci lain atau kembali ke semua mata pelajaran.</p>
+        <button class="primary-button" id="resetFilter">Lihat semua modul</button>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="modal-backdrop" id="moduleModal" hidden>
+    <section class="modal-card library-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeModal" aria-label="Tutup modal">&times;</button>
+
+      <div class="modal-cover" id="modalCover">
+        <span id="modalEmoji">📘</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-tags">
+          <span id="modalSubject">Mata Pelajaran</span>
+          <span id="modalGrade">Kelas</span>
+        </div>
+
+        <h2 id="modalTitle">Judul Modul</h2>
+        <p id="modalDescription">Deskripsi modul.</p>
+
+        <div class="modal-meta library-modal-meta">
+          <div>
+            <strong id="modalPublisher">Guru EduSky</strong>
+            <span>Penerbit</span>
+          </div>
+          <div>
+            <strong id="modalPublishedDate">-</strong>
+            <span>Ditambahkan</span>
+          </div>
+          <div>
+            <strong>PDF</strong>
+            <span>Format modul</span>
+          </div>
+        </div>
+
+        <div class="library-modal-actions">
+          <button type="button" class="primary-button" id="readModulePdf">
+            <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/></svg>
+            Baca sekarang
+          </button>
+          <button type="button" class="pdf-download-button" id="downloadModulePdf">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+            Unduh PDF
+          </button>
+        </div>
+
+        <section class="learning-viewer library-reader" id="learningViewer" hidden>
+          <div class="viewer-heading">
+            <div>
+              <span class="eyebrow">Pratinjau dokumen</span>
+              <h3 id="viewerTitle">Modul PDF</h3>
+            </div>
+            <button type="button" class="viewer-fullscreen" id="viewerFullscreen" aria-label="Buka layar penuh">
+              <svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+            </button>
+          </div>
+
+          <div class="viewer-frame-wrap" id="pdfViewerWrap">
+            <button type="button" class="viewer-exit-fullscreen" id="viewerExitFullscreen" aria-label="Keluar dari layar penuh">
+              <i class="fas fa-compress" aria-hidden="true"></i>
+              <span>Keluar</span>
+            </button>
+            <div class="edusky-pdf-status" id="pdfReaderStatus">Menyiapkan pembaca PDF…</div>
+            <div id="pdfViewer" aria-label="Pembaca PDF modul"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../assets/js/app-settings.js?v=20260722-2"></script>
+  <script src="../../assets/js/pdf-reader.js?v=20260717-2"></script>
+  <script src="../../assets/js/site-navbar.js?v=20260717-1"></script>
+  <script src="../../assets/js/site-notifications.js?v=20260717-1"></script>
+  <script src="../../assets/js/user-sync.js?v=20260717-3"></script>
+  <script src="../../assets/js/modul.js?v=20260718-10"></script>
+</body>
+</html>

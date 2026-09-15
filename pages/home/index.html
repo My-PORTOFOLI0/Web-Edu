@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | EduSky Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/pdf-reader.css?v=20260717-2">
+    <link rel="stylesheet" href="../../assets/css/home.css?v=20260717-3">
+    <link rel="stylesheet" href="../../assets/css/video-player.css?v=20260717-1">
+    <link rel="stylesheet" href="../../assets/css/site-navbar.css?v=20260718-1">
+    <link rel="stylesheet" href="../../assets/css/student-welcome.css?v=20260718-1">
+    <link rel="stylesheet" href="../../assets/css/site-notifications.css?v=20260718-1">
+    <link rel="stylesheet" href="../../assets/css/logout-confirm.css?v=20260717-1">
+    <link rel="stylesheet" href="../../assets/css/student-task-classes.css?v=20260722-1">
+
+</head>
+<body>
+
+    <!-- Halaman ini hanya memuat aplikasi utama. Login berada di login.html. -->
+    <!-- ========================================== -->
+    <!-- BAGIAN APLIKASI UTAMA                      -->
+    <!-- ========================================== -->
+    <div id="app-view">
+        <!-- Navbar -->
+        <nav class="navbar site-navbar" aria-label="Navigasi utama">
+            <div class="nav-container">
+                <a class="nav-brand" href="./index.html" aria-label="EduSky - Beranda">
+                    <img src="https://placehold.co/100x100/38BDF8/FFFFFF?text=Logo" alt="EduSky Logo" style="border-radius: 8px;">
+                    <span class="nav-brand-name">EduSky</span>
+                    <span class="nav-badge" id="user-level-badge" data-nav-grade>SD</span>
+                </a>
+                
+                <!-- Overlay Khusus Mobile Menu -->
+                <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+                <ul class="nav-menu" id="main-nav-menu">
+                    <button class="close-mobile-menu" id="close-mobile-menu" type="button" aria-label="Tutup menu"><span aria-hidden="true">&times;</span></button>
+                    <li><a class="nav-item active" href="./index.html" aria-current="page"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a class="nav-item" href="../modul/index.html"><i class="fas fa-compass"></i> Modul</a></li>
+                    <li><a class="nav-item" href="../kelas/index.html"><i class="fas fa-clipboard-list"></i> Kelas</a></li>
+                    <li><a class="nav-item" href="../game/index.html"><i class="fas fa-gamepad"></i> Bermain</a></li>
+                    <li><a class="nav-item" href="../profil/index.html"><i class="far fa-user"></i> Profil</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <div class="notification-btn" id="notif-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notif-count">3</span>
+                    </div>
+                    <a class="user-profile-btn" href="../profil/index.html">
+                        <img id="nav-user-avatar" data-nav-avatar src="" alt="User">
+                        <span id="nav-user-name" data-nav-user-name class="nav-user-name font-bold text-sm hidden-mobile">Siswa</span>
+                    </a>
+                    <button class="mobile-menu-btn" id="mobile-menu-toggle" type="button" aria-label="Buka menu"><span aria-hidden="true">&#9776;</span></button>
+                </div>
+            </div>
+        </nav>
+
+        <header class="student-welcome" aria-label="Ringkasan siswa">
+            <div class="student-welcome-inner">
+                <div class="student-welcome-profile">
+                    <div class="student-welcome-avatar-wrap" aria-hidden="true">
+                        <div class="student-welcome-avatar" data-student-avatar>SW</div>
+                        <span class="student-welcome-class" data-student-class>-</span>
+                    </div>
+                    <div class="student-welcome-copy">
+                        <p class="student-welcome-eyebrow">Selamat datang,</p>
+                        <h1 class="student-welcome-name" data-student-name>Siswa EduSky</h1>
+                        <div class="student-welcome-progress" aria-label="Progres kelas">
+                            <span class="active">1</span>
+                            <span class="active">2</span>
+                            <span class="active">3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="student-welcome-actions">
+                    <button class="student-welcome-action" type="button" data-student-theme aria-label="Ganti tema">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 3a9 9 0 1 0 9 9c0-.4 0-.8-.1-1.2A7 7 0 0 1 13.2 3H12Z"></path>
+                        </svg>
+                    </button>
+                    <button class="student-welcome-action" type="button" data-student-notifications aria-label="Buka notifikasi">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                            <path d="M10 21h4"></path>
+                        </svg>
+                        <span class="student-welcome-notification-dot"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- ================= PAGE: DASHBOARD ================= -->
+            <section id="page-dashboard" class="page-content active">
+                <div class="hero-banner">
+                    <div class="hero-text">
+                        <h1 id="greeting-text">Selamat Pagi, Andi!</h1>
+                        <p id="motivation-text">Siap belajar dan meraih prestasi hari ini?</p>
+                        <div class="flex gap-2" style="margin-top: 15px;">
+                            <span class="badge badge-success"><i class="fas fa-star"></i> Poin Belajar: 450</span>
+                            <span class="badge badge-warning" id="hero-class-info">Kelas 5A</span>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://placehold.co/300x300/transparent/FFFFFF?text=Ilustrasi+3D+SD" alt="Student">
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <div class="stat-icon bg-blue"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-attendance">95%</h3>
+                            <p>Kehadiran Bulan Ini</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon bg-yellow"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-tasks-pending">0</h3>
+                            <p>Tugas Belum Selesai</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon bg-green"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-modules">12</h3>
+                            <p>Modul Selesai</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon bg-purple"><i class="fas fa-award"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-score">-</h3>
+                            <p>Nilai Rata-rata</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Left Column -->
+                    <div class="flex" style="flex-direction: column; gap: 20px;">
+                        <!-- Promosi Modul -->
+                        <div class="card">
+                            <h2 class="section-title">Modul Rekomendasi <a href="../modul/index.html" class="text-sm text-primary">Lihat Semua</a></h2>
+                            <div class="module-grid dashboard-scroll-grid" id="dash-modules-container">
+                                <!-- Diisi via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Progress Grafik (Simulasi dengan CSS) -->
+                        <div class="card">
+                            <h2 class="section-title">Perkembangan Belajar</h2>
+                            <div class="chart-container" style="height: 200px; display: flex; align-items: flex-end; gap: 10px; padding-top: 20px; border-bottom: 1px solid var(--border-color); border-left: 1px solid var(--border-color); margin-bottom: 10px;">
+                                <div style="flex:1; background: var(--primary); height: 40%; border-radius: 4px 4px 0 0; position:relative;" title="Senin"><span style="position:absolute; bottom:-25px; left:50%; transform:translateX(-50%); font-size:12px;">Sen</span></div>
+                                <div style="flex:1; background: var(--primary); height: 70%; border-radius: 4px 4px 0 0; position:relative;" title="Selasa"><span style="position:absolute; bottom:-25px; left:50%; transform:translateX(-50%); font-size:12px;">Sel</span></div>
+                                <div style="flex:1; background: var(--success); height: 90%; border-radius: 4px 4px 0 0; position:relative;" title="Rabu"><span style="position:absolute; bottom:-25px; left:50%; transform:translateX(-50%); font-size:12px;">Rab</span></div>
+                                <div style="flex:1; background: var(--primary); height: 50%; border-radius: 4px 4px 0 0; position:relative;" title="Kamis"><span style="position:absolute; bottom:-25px; left:50%; transform:translateX(-50%); font-size:12px;">Kam</span></div>
+                                <div style="flex:1; background: var(--warning); height: 30%; border-radius: 4px 4px 0 0; position:relative;" title="Jumat"><span style="position:absolute; bottom:-25px; left:50%; transform:translateX(-50%); font-size:12px;">Jum</span></div>
+                            </div>
+                            <p class="text-center text-sm text-muted" style="margin-top: 20px;">Aktivitas penyelesaian modul & tugas minggu ini</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="flex" style="flex-direction: column; gap: 20px;">
+                        <!-- Jadwal Hari Ini -->
+                        <div class="card">
+                            <h2 class="section-title">Jadwal Hari Ini</h2>
+                            <div class="item-list dashboard-scroll-grid" id="dash-schedule-container">
+                                <!-- Diisi via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Tugas Terdekat -->
+                        <div class="card">
+                            <h2 class="section-title">Tugas Terdekat</h2>
+                            <div class="item-list dashboard-scroll-grid" id="dash-tasks-wrapper">
+                                <!-- Card Absen Masuk (Otomatis Muncul jika belum Absen) -->
+                                <div id="dashboard-attendance-task" class="list-item task-urgent hidden" style="background: #fffbeb; border-color: #fde047; cursor: pointer;" onclick="openAttendanceModal()">
+                                    <div class="item-meta">
+                                        <div class="item-icon bg-yellow"><i class="fas fa-hand-paper" style="color: #ca8a04;"></i></div>
+                                        <div class="item-details">
+                                            <h4 style="color: #ca8a04;">Absensi Hari Ini</h4>
+                                            <p class="text-danger font-bold" style="font-size: 0.75rem;"><i class="fas fa-exclamation-circle"></i> Wajib diselesaikan</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-warning" style="padding: 6px 15px; font-size: 0.85rem; box-shadow: 0 4px 6px rgba(251, 191, 36, 0.3);" onclick="event.stopPropagation(); openAttendanceModal()">Absen Masuk..</button>
+                                </div>
+                                
+                                <div id="dash-tasks-container" style="display: contents;">
+                                    <!-- Diisi via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE: MODULES ================= -->
+            <section id="page-modules" class="page-content">
+                <!-- View 1: Folder Mata Pelajaran -->
+                <div id="subject-list-view">
+                    <div class="flex justify-between items-center" style="margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                        <h2 class="section-title" style="margin: 0;">Pilih Mata Pelajaran</h2>
+                        <div class="flex gap-2">
+                            <input type="text" class="form-control" id="subject-search" placeholder="Cari mata pelajaran..." style="width: 100%; max-width: 250px; padding: 8px 15px;">
+                        </div>
+                    </div>
+                    
+                    <div class="module-grid" id="all-subjects-container">
+                        <!-- Diisi via JS -->
+                    </div>
+                </div>
+
+                <!-- View 2: List Modul di dalam Folder -->
+                <div id="module-list-view" class="hidden">
+                    <button class="btn btn-outline" id="btn-back-subjects" style="margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> Kembali ke Mapel</button>
+                    
+                    <div class="flex justify-between items-center" style="margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                        <h2 class="section-title" style="margin: 0;" id="current-mapel-title">Modul: ...</h2>
+                    </div>
+                    
+                    <div class="module-grid" id="all-modules-container">
+                        <!-- Diisi via JS -->
+                    </div>
+                </div>
+
+                <!-- View 3: Detail Modul Interaktif -->
+                <div id="module-detail-view" class="hidden">
+                    <button class="btn btn-outline" id="btn-back-modules" style="margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> Kembali ke Daftar</button>
+
+                    <div class="card" style="margin-bottom: 20px;">
+                        <div class="module-detail-header">
+                            <img id="detail-mod-img" src="" class="module-detail-cover" alt="Sampul modul">
+                            <div style="min-width: 0;">
+                                <div class="flex items-center gap-2" style="flex-wrap: wrap;">
+                                    <span class="badge badge-primary" id="detail-mod-mapel">Mapel</span>
+                                    <span class="badge badge-success" id="detail-mod-level">Kelas</span>
+                                </div>
+                                <h2 id="detail-mod-title" style="margin: 7px 0;">Judul Modul</h2>
+                                <div class="module-meta-row">
+                                    <span><i class="fas fa-user-tie"></i> <span id="detail-mod-teacher">Guru</span></span>
+                                    <span><i class="fas fa-clock"></i> <span id="detail-mod-time">Waktu</span></span>
+                                    <span><i class="fas fa-signal"></i> <span id="detail-mod-difficulty">Mudah</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="module-manager-toolbar">
+                            <div class="role-indicator" id="module-role-indicator">
+                                <i class="fas fa-user-graduate"></i> Mode Siswa • hanya membaca materi
+                            </div>
+                            <button class="btn btn-outline" id="btn-toggle-manager-mode" type="button">
+                                <i class="fas fa-lock"></i> Mode Guru/Admin
+                            </button>
+                        </div>
+
+                        <div class="tabs" id="module-tabs">
+                            <button class="tab-btn active" data-mtab="materials"><i class="fas fa-file-pdf"></i> Baca Modul</button>
+                            <button class="tab-btn" data-mtab="video"><i class="fas fa-play-circle"></i> Video Belajar</button>
+                            <button class="tab-btn" data-mtab="summary"><i class="fas fa-book-open"></i> Ringkasan</button>
+                            <button class="tab-btn" data-mtab="comic"><i class="fas fa-images"></i> Gambar</button>
+                            <button class="tab-btn" data-mtab="quiz"><i class="fas fa-star"></i> Latihan</button>
+                        </div>
+
+
+                        <!-- Pusat Materi: PDF dan Lampiran -->
+                        <div id="mtab-materials" class="tab-content active">
+                            <div class="material-layout">
+                                <section class="pdf-reader-card" id="pdf-reader-card">
+                                    <div class="pdf-reader-head">
+                                        <div class="pdf-reader-title">
+                                            <i class="fas fa-file-pdf"></i>
+                                            <div style="min-width:0;">
+                                                <strong id="active-pdf-title">Memuat modul PDF...</strong>
+                                                <small id="active-pdf-meta">PDF dapat dibaca langsung di halaman ini</small>
+                                            </div>
+                                        </div>
+                                        <div class="pdf-reader-actions">
+                                            <button class="btn btn-secondary" id="btn-reload-pdf" type="button"><i class="fas fa-rotate-right"></i> Muat Ulang</button>
+                                            <button class="btn btn-primary pdf-download-button" id="btn-download-pdf" type="button" hidden><i class="fas fa-download"></i> Download PDF</button>
+                                            <button class="btn btn-outline" id="btn-fullscreen-pdf" type="button"><i class="fas fa-expand"></i> Perbesar</button>
+                                        </div>
+                                    </div>
+                                    <div class="pdf-frame-wrap" id="pdf-frame-wrap">
+                                        <div class="edusky-pdf-status" id="home-pdf-status">Menyiapkan pembaca PDF…</div>
+                                        <div id="module-pdf-viewer" aria-label="Pembaca modul PDF"></div>
+                                        <div class="pdf-empty-state hidden" id="pdf-empty-state">
+                                            <i class="fas fa-folder-open"></i>
+                                            <h3>Belum ada PDF utama</h3>
+                                            <p>Guru atau admin dapat mengunggah PDF melalui panel pengelola di bawah.</p>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <aside class="material-sidebar">
+                                    <h3><i class="fas fa-paperclip text-primary"></i> File Modul</h3>
+                                    <p class="text-sm text-muted">Pilih PDF untuk dibaca atau file lain untuk diunduh.</p>
+                                    <div class="material-list" id="module-material-list">
+                                        <p class="text-sm text-muted text-center" style="padding:20px 8px;">Memuat file...</p>
+                                    </div>
+                                </aside>
+                            </div>
+
+                            <section class="image-material-section hidden" id="image-material-section">
+                                <div class="flex justify-between items-center" style="gap:12px; flex-wrap:wrap;">
+                                    <div>
+                                        <h3><i class="fas fa-images text-primary"></i> Gambar Pendukung</h3>
+                                        <p class="text-sm text-muted">Klik gambar untuk melihat ukuran penuh.</p>
+                                    </div>
+                                    <span class="badge badge-primary" id="image-material-count">0 gambar</span>
+                                </div>
+                                <div class="image-material-grid" id="image-material-grid"></div>
+                            </section>
+
+                            <section class="manager-upload-panel hidden" id="module-manager-panel">
+                                <div class="flex justify-between items-center" style="gap:12px; flex-wrap:wrap;">
+                                    <div>
+                                        <span class="badge badge-success"><i class="fas fa-shield-halved"></i> Panel Guru/Admin</span>
+                                        <h3 style="margin-top:7px;">Unggah materi ke modul ini</h3>
+                                        <p class="text-sm text-muted">PDF akan tampil di pembaca. Gambar tampil sebagai galeri. File lain tersedia sebagai lampiran.</p>
+                                    </div>
+                                    <button class="btn btn-danger" id="btn-exit-manager-mode" type="button"><i class="fas fa-right-from-bracket"></i> Keluar Mode</button>
+                                </div>
+
+                                <div class="upload-form-grid">
+                                    <label class="module-file-dropzone" id="module-file-dropzone">
+                                        <input id="module-file-input" type="file" multiple accept="application/pdf,image/*,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.txt">
+                                        <i class="fas fa-cloud-arrow-up" style="font-size:2.2rem; color:var(--primary); margin-bottom:8px;"></i>
+                                        <strong style="display:block;">Pilih atau seret file ke sini</strong>
+                                        <span class="text-sm text-muted">PDF, JPG, PNG, WEBP, DOCX, PPTX, XLSX, ZIP, TXT</span>
+                                    </label>
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="module-material-title">Judul materi (opsional)</label>
+                                            <input class="form-control" id="module-material-title" type="text" maxlength="80" placeholder="Contoh: Modul Bab 2">
+                                        </div>
+                                        <label class="flex items-center gap-2 text-sm" style="margin:4px 0 14px; cursor:pointer;">
+                                            <input type="checkbox" id="module-set-primary" checked>
+                                            Jadikan PDF pertama sebagai bacaan utama
+                                        </label>
+                                        <button class="btn btn-primary" id="btn-upload-module-files" type="button" style="width:100%;">
+                                            <i class="fas fa-upload"></i> Simpan ke Modul
+                                        </button>
+                                        <p class="upload-note"><strong>Demo frontend:</strong> file disimpan di IndexedDB browser ini. Pada sistem produksi, penyimpanan perlu dihubungkan ke server dan akun guru/admin.</p>
+                                    </div>
+                                </div>
+                                <div class="selected-file-list" id="selected-module-files"></div>
+                            </section>
+                        </div>
+
+                        <!-- Video Belajar -->
+                        <div id="mtab-video" class="tab-content">
+                            <!-- Video Utama YouTube -->
+                            <div style="margin-bottom: 24px;">
+                                <h3 style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-play-circle" style="color: var(--danger);"></i>
+                                    Video Pembelajaran Utama
+                                </h3>
+                                
+                                <!-- YouTube Embed Responsif -->
+                                <div class="youtube-embed-wrap edusky-video-shell">
+                                    <div class="edusky-video-poster" id="main-video-poster">
+                                        <img class="edusky-video-poster-image" id="main-video-poster-image" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Sampul video pembelajaran">
+                                        <div class="edusky-video-glass">
+                                            <strong id="main-video-poster-title">Video Pembelajaran Utama</strong>
+                                            <p>Tonton video langsung dari halaman belajar.</p>
+                                            <button class="edusky-video-play" id="btn-play-main-video" type="button">
+                                                <span class="edusky-video-play-icon">▶</span>
+                                                Tonton Sekarang
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <iframe 
+                                        id="main-video-player"
+                                        src="about:blank" 
+                                        title="Video Pembelajaran"
+                                        sandbox="allow-scripts allow-same-origin allow-presentation"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        loading="lazy"
+                                        hidden>
+                                    </iframe>
+                                </div>
+                                
+                                <!-- Info & Kontrol Video -->
+                                <div class="flex justify-between items-center" style="gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+                                    <div>
+                                        <p class="text-muted" id="video-help-text"><i class="fas fa-info-circle"></i> Tonton video ini untuk memahami materi dengan lebih baik.</p>
+                                    </div>
+                                    <button class="btn btn-success" id="btn-mark-video"><i class="fas fa-check"></i> Tandai Selesai Belajar</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Video Pelengkap (Opsional) -->
+                            <div>
+                                <h3 style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-list"></i>
+                                    Video Pelengkap Lainnya
+                                </h3>
+                                <div class="video-list-container">
+                                    <!-- Video Item 1 -->
+                                    <div class="video-item-card" onclick="changeMainVideo('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0')">
+                                        <div class="video-item-thumbnail">
+                                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="Video thumbnail">
+                                            <div class="video-item-play-btn">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="video-item-info">
+                                            <div class="video-item-title">Pengenalan Materi Dasar</div>
+                                            <div class="video-item-duration"><i class="fas fa-clock"></i> 5 menit</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Video Item 2 -->
+                                    <div class="video-item-card" onclick="changeMainVideo('https://www.youtube-nocookie.com/embed/9bZkp7q19f0?rel=0')">
+                                        <div class="video-item-thumbnail">
+                                            <img src="https://img.youtube.com/vi/9bZkp7q19f0/mqdefault.jpg" alt="Video thumbnail">
+                                            <div class="video-item-play-btn">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="video-item-info">
+                                            <div class="video-item-title">Contoh Soal Praktis</div>
+                                            <div class="video-item-duration"><i class="fas fa-clock"></i> 8 menit</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Video Item 3 -->
+                                    <div class="video-item-card" onclick="changeMainVideo('https://www.youtube-nocookie.com/embed/jNQXAC9IVRw?rel=0')">
+                                        <div class="video-item-thumbnail">
+                                            <img src="https://img.youtube.com/vi/jNQXAC9IVRw/mqdefault.jpg" alt="Video thumbnail">
+                                            <div class="video-item-play-btn">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                        <div class="video-item-info">
+                                            <div class="video-item-title">Tips & Trik Penting</div>
+                                            <div class="video-item-duration"><i class="fas fa-clock"></i> 6 menit</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ringkasan -->
+                        <div id="mtab-summary" class="tab-content">
+                            <div id="summary-content"></div>
+                        </div>
+
+                        <!-- Cerita Gambar -->
+                        <div id="mtab-comic" class="tab-content">
+                            <div class="comic-panel">
+                                <div class="comic-scene" id="comic-scene">
+                                    <div class="comic-emoji" id="comic-emoji">🧒🏻</div>
+                                    <div class="comic-bubble">
+                                        <div id="comic-text">Cerita matematika akan tampil di sini.</div>
+                                        <div class="comic-equation" id="comic-equation">12 + 6 = 18</div>
+                                    </div>
+                                </div>
+                                <div class="comic-controls">
+                                    <button class="btn btn-outline" id="btn-comic-prev" disabled><i class="fas fa-chevron-left"></i> Sebelumnya</button>
+                                    <span style="font-weight: bold; line-height: 40px;" id="comic-counter">1 / 4</span>
+                                    <button class="btn btn-primary" id="btn-comic-next">Selanjutnya <i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Latihan -->
+                        <div id="mtab-quiz" class="tab-content">
+                            <div class="quiz-container" id="quiz-area">
+                                <div class="quiz-head">
+                                    <div>
+                                        <span class="badge badge-primary">Latihan Cepat</span>
+                                        <h3 style="margin-top: 7px;">Uji Pemahamanmu</h3>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-muted" id="quiz-progress-text" style="text-align:right; margin-bottom:5px;">Soal 1 dari 5</div>
+                                        <div class="quiz-mini-progress"><div id="quiz-progress-fill"></div></div>
+                                    </div>
+                                </div>
+                                <p id="quiz-question" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 15px;">Pertanyaan kuis akan muncul di sini.</p>
+                                <div id="quiz-options"></div>
+                                <div id="quiz-feedback" class="quiz-feedback"></div>
+                                <button class="btn btn-primary" id="btn-submit-quiz" style="margin-top: 15px; width: 100%;">Cek Jawaban</button>
+                            </div>
+                            <div id="quiz-result" class="hidden text-center" style="padding: 30px;">
+                                <i class="fas fa-trophy" style="font-size: 4rem; color: var(--warning); margin-bottom: 10px;"></i>
+                                <h3 id="quiz-result-title">Hebat!</h3>
+                                <div class="result-stars" id="quiz-result-stars">⭐⭐⭐</div>
+                                <p id="quiz-result-text">Kamu telah menyelesaikan latihan.</p>
+                                <button class="btn btn-outline" id="btn-repeat-quiz" style="margin-top: 15px;"><i class="fas fa-redo"></i> Ulangi Latihan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE: CLASS ================= -->
+            <section id="page-class" class="page-content">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h1 id="class-title">Kelas 5A</h1>
+                            <p class="text-muted"><i class="fas fa-user-tie"></i> Wali Kelas: Ibu Siti Rahmawati | <i class="fas fa-users"></i> 36 Siswa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-ctab="attendance">Absensi</button>
+                    <button class="tab-btn" data-ctab="tasks">Tugas</button>
+                    <button class="tab-btn" data-ctab="schedule">Jadwal</button>
+                    <button class="tab-btn" data-ctab="classmates">Teman</button>
+                </div>
+
+                <!-- Tab Absensi -->
+                <div id="ctab-attendance" class="tab-content active">
+                    <div class="attendance-box card">
+                        <h2>Absensi Hari Ini</h2>
+                        <div class="time-display" id="current-time">00:00:00</div>
+                        <p id="current-date" style="margin-bottom: 20px; font-weight: 600;"></p>
+                        
+                        <div id="attendance-action">
+                            <p style="margin-bottom: 15px;">Silakan catat kehadiranmu hari ini:</p>
+                            <div class="flex justify-center gap-4">
+                                <button class="btn btn-success" onclick="recordAttendance('Hadir')"><i class="fas fa-hand-paper"></i> Hadir</button>
+                                <button class="btn btn-warning" onclick="recordAttendance('Izin')"><i class="fas fa-envelope"></i> Izin</button>
+                                <button class="btn btn-outline" onclick="recordAttendance('Sakit')"><i class="fas fa-procedures"></i> Sakit</button>
+                            </div>
+                        </div>
+                        
+                        <div id="attendance-success" class="hidden">
+                            <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 10px;"></i>
+                            <h3>Absensi Berhasil!</h3>
+                            <p>Status: <span id="att-status" class="font-bold"></span> pada <span id="att-time"></span></p>
+                            <button class="btn btn-outline" style="margin-top: 20px; font-size: 0.8rem;" onclick="resetAttendance()">[Demo] Reset Absensi</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Tugas -->
+                <div id="ctab-tasks" class="tab-content">
+                    <div id="task-list-view">
+                        <section class="student-grade-summary" id="student-grade-summary" aria-label="Ringkasan nilai per mata pelajaran" hidden></section>
+                        <div class="flex gap-2" style="margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
+                            <button class="badge badge-primary" style="font-size: 14px; border: none; cursor:pointer;" onclick="filterTasks('Semua')">Semua</button>
+                            <button class="badge" style="background:#e5e7eb; color:#374151; font-size: 14px; border: none; cursor:pointer;" onclick="filterTasks('Baru')">Baru</button>
+                            <button class="badge" style="background:#fef08a; color:#854d0e; font-size: 14px; border: none; cursor:pointer;" onclick="filterTasks('Sedang dikerjakan')">Dikerjakan</button>
+                            <button class="badge" style="background:#dcfce7; color:#166534; font-size: 14px; border: none; cursor:pointer;" onclick="filterTasks('Selesai')">Selesai</button>
+                        </div>
+                        
+                        <div class="item-list" id="class-tasks-container">
+                            <!-- Diisi via JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Form Pengumpulan Tugas (Hidden by default) -->
+                    <div id="task-submit-view" class="card hidden">
+                        <button class="btn btn-outline" style="margin-bottom: 15px;" onclick="closeTaskSubmit()"><i class="fas fa-arrow-left"></i> Kembali</button>
+                        
+                        <h2 id="submit-task-title">Judul Tugas</h2>
+                        <div class="flex justify-between items-center" style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);">
+                            <span class="badge badge-primary" id="submit-task-mapel">Mapel</span>
+                            <span class="text-danger font-bold text-sm" id="submit-task-due"><i class="fas fa-clock"></i> Tenggat: ...</span>
+                        </div>
+                        
+                        <p id="submit-task-desc" style="margin-bottom: 20px; line-height: 1.6;"></p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Jawaban / Catatan</label>
+                            <textarea class="form-control" id="task-answer" rows="4" placeholder="Tulis jawaban atau pesan untuk guru di sini..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Lampirkan File (Opsional)</label>
+                            <div class="upload-area" onclick="document.getElementById('fake-file-input').click()">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                                <p>Klik di sini untuk memilih file</p>
+                                <p class="text-sm text-muted">Format: PDF, JPG, PNG, DOCX (Maks 5MB)</p>
+                            </div>
+                            <input type="file" id="fake-file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png,.docx,application/pdf,image/jpeg,image/png,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="handleFakeUpload(this)">
+                            
+                            <div class="file-list" id="upload-file-list">
+                                <!-- File yang diupload via JS -->
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="submit-task-button" style="width: 100%;" onclick="submitTask()"><i class="fas fa-paper-plane"></i> Kumpulkan Tugas</button>
+                    </div>
+                </div>
+
+                <!-- Tab Jadwal -->
+                <div id="ctab-schedule" class="tab-content">
+                    <div class="card">
+                        <div class="flex justify-between items-center" style="margin-bottom: 15px;">
+                            <h3>Jadwal Pelajaran Mingguan</h3>
+                            <select class="form-control" style="width: auto; padding: 5px 10px;" id="schedule-day-filter">
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                            </select>
+                        </div>
+                        <div class="item-list" id="full-schedule-container">
+                            <!-- Diisi via JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Teman -->
+                <div id="ctab-classmates" class="tab-content">
+                    <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;" id="classmates-container">
+                        <!-- Diisi via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE: PROFILE ================= -->
+            <section id="page-profile" class="page-content">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="profile-header">
+                        <img id="prof-avatar" src="https://placehold.co/150/38BDF8/FFFFFF?text=AP" class="profile-avatar-large">
+                        <h2 id="prof-name">Andi Pratama</h2>
+                        <p class="text-muted"><span id="prof-nis">SD2026001</span> • <span id="prof-class">Kelas 5A</span> • <span id="prof-school">SD EduSky</span></p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h3 style="margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Informasi Pribadi</h3>
+                        <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                            <tr><th style="padding: 10px 0; color: var(--text-muted); width: 40%;">Tahun Ajaran</th><td style="font-weight: 600;">2026/2027</td></tr>
+                            <tr><th style="padding: 10px 0; color: var(--text-muted);">Jenis Kelamin</th><td style="font-weight: 600;">Laki-laki</td></tr>
+                            <tr><th style="padding: 10px 0; color: var(--text-muted);">Tanggal Lahir</th><td style="font-weight: 600;">15 Agustus 2015</td></tr>
+                            <tr><th style="padding: 10px 0; color: var(--text-muted);">Email Orang Tua</th><td style="font-weight: 600;">ortu.andi@email.com</td></tr>
+                        </table>
+                        
+                        <h3 style="margin: 25px 0 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Badge Prestasi <i class="fas fa-medal text-warning"></i></h3>
+                        <div class="flex gap-2" style="flex-wrap: wrap;">
+                            <span class="badge" style="background:#fef08a; color:#854d0e; font-size:12px; padding:6px 12px;"><i class="fas fa-star"></i> Rajin Belajar</span>
+                            <span class="badge" style="background:#dcfce7; color:#166534; font-size:12px; padding:6px 12px;"><i class="fas fa-clock"></i> Tepat Waktu</span>
+                            <span class="badge" style="background:#e0f2fe; color:#0284c7; font-size:12px; padding:6px 12px;"><i class="fas fa-calculator"></i> Ahli MTK</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Pengaturan Akun</h3>
+                        
+                        <div class="settings-row">
+                            <div>
+                                <strong>Mode Gelap (Dark Mode)</strong>
+                                <p class="text-sm text-muted">Ubah tampilan menjadi gelap agar mata lebih nyaman.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="theme-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="settings-row">
+                            <div>
+                                <strong>Notifikasi Suara</strong>
+                                <p class="text-sm text-muted">Bunyikan nada saat ada tugas baru.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <button class="btn btn-danger mt-3" style="width: 100%; margin-top: 20px;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Keluar (Logout)</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Modal Absensi (Pop-up) -->
+    <div id="attendance-modal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <div class="item-icon bg-blue" style="margin: 0 auto 15px; width: 60px; height: 60px; font-size: 2rem; border-radius: 50%;"><i class="fas fa-clipboard-check"></i></div>
+            <h2 style="margin-bottom: 5px;">Konfirmasi Kehadiran</h2>
+            <p class="text-muted text-sm" style="margin-bottom: 25px;">Catat kehadiranmu hari ini sebelum mulai belajar.</p>
+            <div class="flex justify-center gap-3" style="margin-bottom: 20px;">
+                <button class="btn btn-success" onclick="submitModalAttendance('Hadir')"><i class="fas fa-hand-paper"></i> Hadir</button>
+                <button class="btn btn-warning" onclick="submitModalAttendance('Izin')">Izin</button>
+                <button class="btn btn-outline" onclick="submitModalAttendance('Sakit')">Sakit</button>
+            </div>
+            <button class="btn btn-outline" style="width: 100%; border: none; background: var(--bg-light);" onclick="closeAttendanceModal()">Batal</button>
+        </div>
+    </div>
+
+    <!-- Pratinjau gambar materi -->
+    <div class="material-lightbox" id="material-lightbox" role="dialog" aria-modal="true" aria-label="Pratinjau gambar materi">
+        <button class="material-lightbox-close" id="material-lightbox-close" type="button" aria-label="Tutup"><i class="fas fa-times"></i></button>
+        <img id="material-lightbox-image" src="" alt="Pratinjau materi">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../assets/js/app-settings.js?v=20260722-2"></script>
+    <script src="../../assets/js/pdf-reader.js?v=20260717-2"></script>
+    <script src="../../assets/js/youtube-player.js?v=20260717-1"></script>
+    <script src="../../assets/js/logout-confirm.js?v=20260717-1"></script>
+    <script src="../../assets/js/home.js?v=20260717-11"></script>
+    <script src="../../assets/js/student-tugas.js?v=20260723-4"></script>
+    <script src="../../assets/js/student-welcome.js?v=20260717-2"></script>
+    <script src="../../assets/js/site-notifications.js?v=20260717-1"></script>
+    <script src="../../assets/js/user-sync.js?v=20260717-3"></script>
+</body>
+</html>

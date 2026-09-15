@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f8fc" />
+  <meta name="description" content="Kelola profil, preferensi, dan keamanan akun siswa EduSky." />
+  <script>
+    try {
+      if (localStorage.getItem("edusky_theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    } catch (error) {
+      // Gunakan tema terang jika penyimpanan browser tidak tersedia.
+    }
+  </script>
+  <title>Profil Saya | EduSky Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../assets/css/profil.css?v=20260719-3" />
+  <link rel="stylesheet" href="../../assets/css/site-navbar.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/site-notifications.css?v=20260718-1" />
+  <link rel="stylesheet" href="../../assets/css/logout-confirm.css?v=20260717-1" />
+  <link rel="stylesheet" href="../../assets/css/support-center.css?v=20260719-5" />
+</head>
+<body class="has-site-navbar profile-page">
+  <nav class="navbar site-navbar" aria-label="Navigasi utama">
+    <div class="nav-container">
+      <a class="nav-brand" href="../home/index.html" aria-label="EduSky - Beranda">
+        <img src="https://placehold.co/100x100/38BDF8/FFFFFF?text=Logo" alt="Logo EduSky" />
+        <span class="nav-brand-name">EduSky</span>
+        <span class="nav-badge" data-nav-grade>SD</span>
+      </a>
+
+      <div class="mobile-menu-overlay"></div>
+      <ul class="nav-menu">
+        <button class="close-mobile-menu" type="button" aria-label="Tutup menu"><span aria-hidden="true">&times;</span></button>
+        <li><a class="nav-item" href="../home/index.html"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a class="nav-item" href="../modul/index.html"><i class="fas fa-compass"></i><span>Modul</span></a></li>
+        <li><a class="nav-item" href="../kelas/index.html"><i class="fas fa-clipboard-list"></i><span>Kelas</span></a></li>
+        <li><a class="nav-item" href="../game/index.html"><i class="fas fa-gamepad"></i><span>Bermain</span></a></li>
+        <li><a class="nav-item active" href="./index.html" aria-current="page"><i class="far fa-user"></i><span>Profil</span></a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="notification-btn" href="../home/index.html" aria-label="Notifikasi">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </a>
+        <a class="user-profile-btn" href="./index.html" aria-label="Buka profil">
+          <img data-nav-avatar src="" alt="Foto profil siswa" />
+          <span class="nav-user-name" data-nav-user-name>Siswa</span>
+        </a>
+        <button class="mobile-menu-btn" type="button" aria-label="Buka menu"><span aria-hidden="true">&#9776;</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="profile-shell">
+    <header class="page-heading">
+      <div>
+        <span class="page-kicker"><i class="far fa-user-circle"></i> Akun siswa</span>
+        <h1>Profil Saya</h1>
+        <p>Kelola identitas, preferensi belajar, dan keamanan akunmu.</p>
+      </div>
+      <a class="back-home" href="../home/index.html"><i class="fas fa-arrow-left"></i> Kembali ke Home</a>
+    </header>
+
+    <div class="profile-alert" id="profileAlert" role="status" aria-live="polite" hidden>
+      <i class="fas fa-circle-info"></i>
+      <span id="profileAlertText"></span>
+      <button type="button" id="closeProfileAlert" aria-label="Tutup pesan">&times;</button>
+    </div>
+
+    <section class="profile-overview" aria-label="Ringkasan profil">
+      <div class="profile-photo-wrap">
+        <div class="profile-photo">
+          <img id="profilePhoto" src="" alt="Foto profil siswa" hidden />
+          <span id="profileInitials">SW</span>
+        </div>
+        <label class="photo-upload" for="profilePhotoInput" title="Ganti foto profil">
+          <i class="fas fa-camera"></i>
+          <span class="sr-only">Ganti foto profil</span>
+        </label>
+        <input id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+      </div>
+
+      <div class="profile-identity">
+        <div class="identity-heading">
+          <div>
+            <h2 id="overviewName">Siswa EduSky</h2>
+            <p id="overviewUsername">@siswa</p>
+          </div>
+          <span class="account-status active" id="accountStatus"><i class="fas fa-circle"></i> Aktif</span>
+        </div>
+        <div class="identity-badges">
+          <span><i class="fas fa-id-card"></i> NIS <b id="overviewNis">-</b></span>
+          <span><i class="fas fa-layer-group"></i> <b id="overviewLevel">SD</b></span>
+          <span><i class="fas fa-school"></i> Kelas <b id="overviewClass">-</b></span>
+        </div>
+        <div class="profile-completeness">
+          <div><span>Kelengkapan profil</span><strong id="profilePercent">0%</strong></div>
+          <div class="completeness-track"><span id="profileProgress"></span></div>
+        </div>
+      </div>
+
+      <div class="profile-facts">
+        <div><i class="fas fa-book-open"></i><strong id="completedModules">0</strong><span>Modul selesai</span></div>
+        <div><i class="fas fa-clock-rotate-left"></i><strong id="lastLoginShort">-</strong><span>Login terakhir</span></div>
+      </div>
+    </section>
+
+    <nav class="profile-tabs" aria-label="Sub-menu profil" role="tablist">
+      <button class="profile-tab active" type="button" role="tab" aria-selected="true" aria-controls="personalDataSection" data-profile-tab="personal">
+        <span class="profile-tab-icon blue"><i class="far fa-address-card"></i></span>
+        <span><strong>Data Pribadi</strong><small>Identitas siswa</small></span>
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <button class="profile-tab" type="button" role="tab" aria-selected="false" aria-controls="preferenceSection" data-profile-tab="preferences">
+        <span class="profile-tab-icon purple"><i class="fas fa-sliders"></i></span>
+        <span><strong>Preferensi Belajar</strong><small>Tema dan notifikasi</small></span>
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <button class="profile-tab" type="button" role="tab" aria-selected="false" aria-controls="securitySection" data-profile-tab="security">
+        <span class="profile-tab-icon green"><i class="fas fa-shield-halved"></i></span>
+        <span><strong>Keamanan</strong><small>Ubah password</small></span>
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <button class="profile-tab" type="button" role="tab" aria-selected="false" aria-controls="accountSessionSection" data-profile-tab="sessions">
+        <span class="profile-tab-icon orange"><i class="fas fa-laptop"></i></span>
+        <span><strong>Akun &amp; Sesi</strong><small>Aktivitas dan logout</small></span>
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </nav>
+
+    <div class="profile-layout">
+      <div class="profile-main-column">
+        <section class="profile-card profile-panel active" id="personalDataSection" role="tabpanel" data-profile-panel="personal">
+          <div class="card-heading">
+            <div class="card-icon blue"><i class="far fa-address-card"></i></div>
+            <div><h2>Data Pribadi</h2><p>Nama dan username dapat kamu perbarui sendiri.</p></div>
+          </div>
+
+          <form id="profileForm" novalidate>
+            <div class="form-grid">
+              <label class="form-field wide">
+                <span>Nama lengkap <b>*</b></span>
+                <div class="input-wrap"><i class="far fa-user"></i><input id="profileName" name="nama_siswa" maxlength="150" autocomplete="name" required /></div>
+                <small>Gunakan nama lengkap sesuai data sekolah.</small>
+              </label>
+              <label class="form-field">
+                <span>Username <b>*</b></span>
+                <div class="input-wrap"><i class="fas fa-at"></i><input id="profileUsername" name="username" minlength="3" maxlength="50" autocomplete="username" required /></div>
+                <small>Minimal 3 karakter tanpa spasi.</small>
+              </label>
+              <label class="form-field readonly">
+                <span>Nomor Induk Siswa</span>
+                <div class="input-wrap"><i class="fas fa-id-badge"></i><input id="profileNis" readonly /></div>
+                <small>Hubungi admin untuk mengubah NIS.</small>
+              </label>
+              <label class="form-field readonly">
+                <span>Jenjang</span>
+                <div class="input-wrap"><i class="fas fa-graduation-cap"></i><input id="profileLevel" readonly /></div>
+              </label>
+              <label class="form-field readonly">
+                <span>Kelas</span>
+                <div class="input-wrap"><i class="fas fa-chalkboard"></i><input id="profileClass" readonly /></div>
+              </label>
+              <label class="form-field wide readonly">
+                <span>Sekolah</span>
+                <div class="input-wrap"><i class="fas fa-school"></i><input id="profileSchool" readonly /></div>
+                <small>Data akademik hanya dapat diubah oleh administrator.</small>
+              </label>
+            </div>
+
+            <div class="photo-note" id="photoNote" hidden>
+              <i class="fas fa-image"></i><span>Foto baru siap disimpan.</span>
+              <button type="button" id="removePhoto">Hapus foto</button>
+            </div>
+
+            <div class="form-actions">
+              <button class="button secondary" type="button" id="resetProfile"><i class="fas fa-rotate-left"></i> Batalkan</button>
+              <button class="button primary" type="submit" id="saveProfile"><i class="fas fa-floppy-disk"></i><span>Simpan Perubahan</span></button>
+            </div>
+          </form>
+        </section>
+
+        <section class="profile-card profile-panel" id="preferenceSection" role="tabpanel" data-profile-panel="preferences" hidden>
+          <div class="card-heading">
+            <div class="card-icon purple"><i class="fas fa-sliders"></i></div>
+            <div><h2>Preferensi Belajar</h2><p>Pengaturan ini tersimpan bersama akunmu.</p></div>
+          </div>
+          <div class="preference-list">
+            <label class="preference-row">
+              <span class="preference-icon"><i class="fas fa-palette"></i></span>
+              <span class="preference-copy"><strong>Tampilan</strong><small>Pilih tema halaman EduSky.</small></span>
+              <select id="themePreference" aria-label="Tema tampilan">
+                <option value="light">Terang</option>
+                <option value="dark">Gelap</option>
+                <option value="system">Ikuti perangkat</option>
+              </select>
+            </label>
+            <label class="preference-row">
+              <span class="preference-icon green"><i class="far fa-bell"></i></span>
+              <span class="preference-copy"><strong>Notifikasi belajar</strong><small>Pengingat modul dan tugas terbaru.</small></span>
+              <span class="switch"><input id="notificationPreference" type="checkbox" checked /><span></span></span>
+            </label>
+            <label class="preference-row">
+              <span class="preference-icon orange"><i class="fas fa-volume-high"></i></span>
+              <span class="preference-copy"><strong>Efek suara</strong><small>Suara untuk aktivitas dan pencapaian.</small></span>
+              <span class="switch"><input id="soundPreference" type="checkbox" checked /><span></span></span>
+            </label>
+          </div>
+          <div class="form-actions compact">
+            <button class="button primary" type="button" id="savePreferences"><i class="fas fa-check"></i><span>Simpan Preferensi</span></button>
+          </div>
+        </section>
+      </div>
+
+      <aside class="profile-side-column">
+        <section class="profile-card security-card profile-panel" id="securitySection" role="tabpanel" data-profile-panel="security" hidden>
+          <div class="card-heading">
+            <div class="card-icon green"><i class="fas fa-shield-halved"></i></div>
+            <div><h2>Keamanan</h2><p>Perbarui password secara berkala.</p></div>
+          </div>
+          <form id="passwordForm" novalidate>
+            <label class="form-field">
+              <span>Password saat ini</span>
+              <div class="input-wrap password-wrap"><i class="fas fa-lock"></i><input id="currentPassword" type="password" autocomplete="current-password" required /><button type="button" class="toggle-password" aria-label="Tampilkan password"><i class="far fa-eye"></i></button></div>
+            </label>
+            <label class="form-field">
+              <span>Password baru</span>
+              <div class="input-wrap password-wrap"><i class="fas fa-key"></i><input id="newPassword" type="password" minlength="6" autocomplete="new-password" required /><button type="button" class="toggle-password" aria-label="Tampilkan password"><i class="far fa-eye"></i></button></div>
+              <div class="password-strength"><span id="passwordStrengthBar"></span></div>
+              <small id="passwordStrengthText">Minimal 6 karakter.</small>
+            </label>
+            <label class="form-field">
+              <span>Konfirmasi password</span>
+              <div class="input-wrap password-wrap"><i class="fas fa-check-circle"></i><input id="confirmPassword" type="password" minlength="6" autocomplete="new-password" required /><button type="button" class="toggle-password" aria-label="Tampilkan password"><i class="far fa-eye"></i></button></div>
+            </label>
+            <button class="button primary full" type="submit" id="changePassword"><i class="fas fa-shield"></i><span>Ubah Password</span></button>
+          </form>
+        </section>
+
+        <section class="profile-card account-card profile-panel" id="accountSessionSection" role="tabpanel" data-profile-panel="sessions" hidden>
+          <div class="card-heading">
+            <div class="card-icon orange"><i class="fas fa-laptop"></i></div>
+            <div><h2>Akun &amp; Sesi</h2><p>Informasi aktivitas akun.</p></div>
+          </div>
+          <dl class="account-details">
+            <div><dt>Status</dt><dd id="detailStatus">Aktif</dd></div>
+            <div><dt>Login terakhir</dt><dd id="detailLastLogin">-</dd></div>
+            <div><dt>Akun dibuat</dt><dd id="detailCreatedAt">-</dd></div>
+            <div><dt>Data diperbarui</dt><dd id="detailUpdatedAt">-</dd></div>
+          </dl>
+          <button class="button danger-outline full" type="button" id="logoutButton"><i class="fas fa-right-from-bracket"></i> Keluar dari Akun</button>
+          <button class="button session-secondary full" type="button" id="logoutAllButton"><i class="fas fa-user-lock"></i> Keluar dari Semua Perangkat</button>
+        </section>
+
+        <section class="help-card">
+          <i class="fas fa-headset"></i>
+          <div><strong>Butuh bantuan?</strong><p>Hubungi administrator jika data sekolahmu tidak sesuai.</p></div>
+          <div class="help-card-actions">
+            <button type="button" data-support-whatsapp><i class="fab fa-whatsapp"></i> WhatsApp Admin</button>
+            <button type="button" data-support-open><i class="far fa-paper-plane"></i> Kirim Pertanyaan</button>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="profile-toast" id="profileToast" role="status" aria-live="polite"></div>
+  <div class="page-loader" id="profileLoader"><span></span><p>Memuat profil dari Supabase...</p></div>
+
+  <div class="photo-editor" id="photoEditor" role="dialog" aria-modal="true" aria-labelledby="photoEditorTitle" hidden>
+    <button class="photo-editor-backdrop" type="button" id="closePhotoEditorBackdrop" aria-label="Tutup editor foto"></button>
+    <section class="photo-editor-card">
+      <header class="photo-editor-heading">
+        <div>
+          <span><i class="fas fa-wand-magic-sparkles"></i> Sesuaikan foto</span>
+          <h2 id="photoEditorTitle">Atur foto profil</h2>
+          <p>Geser foto dan gunakan zoom agar pas di dalam frame bulat.</p>
+        </div>
+        <button class="photo-editor-close" type="button" id="closePhotoEditor" aria-label="Tutup editor foto">&times;</button>
+      </header>
+
+      <div class="photo-editor-body">
+        <div class="photo-crop-stage" id="photoCropStage">
+          <canvas id="photoCropCanvas" width="480" height="480" tabindex="0" aria-label="Pratinjau foto. Geser untuk mengatur posisi."></canvas>
+          <div class="photo-crop-ring" aria-hidden="true"></div>
+          <span class="photo-drag-hint"><i class="fas fa-up-down-left-right"></i> Geser foto</span>
+        </div>
+
+        <div class="photo-editor-controls">
+          <div class="photo-zoom-heading">
+            <label for="photoZoom"><i class="fas fa-magnifying-glass"></i> Ukuran foto</label>
+            <output id="photoZoomValue" for="photoZoom">100%</output>
+          </div>
+          <div class="photo-zoom-control">
+            <button type="button" id="photoZoomOut" aria-label="Perkecil foto"><i class="fas fa-minus"></i></button>
+            <input id="photoZoom" type="range" min="1" max="3" value="1" step="0.01" aria-label="Perbesar atau perkecil foto" />
+            <button type="button" id="photoZoomIn" aria-label="Perbesar foto"><i class="fas fa-plus"></i></button>
+          </div>
+          <button class="photo-reset" type="button" id="resetPhotoPosition"><i class="fas fa-rotate-left"></i> Kembalikan posisi</button>
+          <p class="photo-editor-tip"><i class="far fa-circle-check"></i> Area di dalam lingkaran akan menjadi foto profilmu.</p>
+        </div>
+      </div>
+
+      <footer class="photo-editor-actions">
+        <button class="button secondary" type="button" id="cancelPhotoEditor">Batal</button>
+        <button class="button primary" type="button" id="applyPhotoCrop"><i class="fas fa-cloud-arrow-up"></i><span>Simpan Foto</span></button>
+      </footer>
+    </section>
+  </div>
+
+  <div class="save-success" id="saveSuccess" role="dialog" aria-modal="true" aria-labelledby="saveSuccessTitle" hidden>
+    <div class="save-success-backdrop"></div>
+    <div class="save-success-card">
+      <div class="success-confetti" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="success-check"><i class="fas fa-check"></i></div>
+      <span class="success-kicker">Tersimpan ke Supabase</span>
+      <h2 id="saveSuccessTitle">Perubahan berhasil!</h2>
+      <p id="saveSuccessMessage">Profil sudah diperbarui dan disinkronkan ke seluruh halaman.</p>
+      <button type="button" id="closeSaveSuccess">Selesai</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../assets/js/app-settings.js?v=20260722-2"></script>
+  <script src="../../assets/js/support-center.js?v=20260719-6"></script>
+  <script src="../../assets/js/site-navbar.js?v=20260717-1"></script>
+  <script src="../../assets/js/site-notifications.js?v=20260717-1"></script>
+  <script src="../../assets/js/user-sync.js?v=20260717-3"></script>
+  <script src="../../assets/js/logout-confirm.js?v=20260717-1"></script>
+  <script src="../../assets/js/profil.js?v=20260719-2"></script>
+</body>
+</html>

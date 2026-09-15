@@ -1,0 +1,83 @@
+.edusky-pdf-reader {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  overflow: auto;
+  background: #dfe5ec;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  touch-action: pan-y pinch-zoom;
+}
+
+.edusky-pdf-status {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  padding: 32px;
+  color: #475569;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.edusky-pdf-status[hidden] {
+  display: none;
+}
+
+.edusky-pdf-status.is-error {
+  color: #b91c1c;
+  background: #fff7f7;
+}
+
+.edusky-pdf-pages {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  min-height: 100%;
+  padding: 20px;
+}
+
+.edusky-pdf-page {
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 7px 22px rgba(15, 23, 42, 0.16);
+}
+
+.edusky-pdf-page canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.edusky-pdf-page-number {
+  padding: 7px 12px;
+  color: #64748b;
+  font: 600 12px/1.2 Inter, Nunito, Arial, sans-serif;
+  text-align: center;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pdf-download-button[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .edusky-pdf-reader {
+    min-height: 460px;
+  }
+
+  .edusky-pdf-pages {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .edusky-pdf-page-number {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+}

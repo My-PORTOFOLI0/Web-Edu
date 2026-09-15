@@ -1,0 +1,56 @@
+[build]
+  command = "bash scripts/build-static.sh"
+  publish = "dist"
+
+[[redirects]]
+  from = "/admin"
+  to = "/pages/admin-login/index.html"
+  status = 302
+
+[[redirects]]
+  from = "/login"
+  to = "/index.html"
+  status = 302
+
+[[redirects]]
+  from = "/home"
+  to = "/pages/home/index.html"
+  status = 302
+
+[[redirects]]
+  from = "/modul"
+  to = "/pages/modul/index.html"
+  status = 302
+
+[[redirects]]
+  from = "/kelas"
+  to = "/pages/kelas/index.html"
+  status = 302
+
+[[redirects]]
+  from = "/bermain"
+  to = "/pages/game/index.html"
+  status = 302
+
+[[redirects]]
+  from = "/profil"
+  to = "/pages/profil/index.html"
+  status = 302
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), geolocation=(), microphone=()"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"

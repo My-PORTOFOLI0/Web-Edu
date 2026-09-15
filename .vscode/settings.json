@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "**/.DS_Store": true
+  },
+  "files.associations": {
+    "*.sql": "sql"
+  },
+  "liveServer.settings.root": "/"
+}

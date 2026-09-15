@@ -1,0 +1,364 @@
+.admin-student-class-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 16px;
+}
+
+.student-class-modal-content {
+  max-width: 540px;
+}
+
+#siswaKelas[readonly] {
+  background: var(--bg-light);
+  color: var(--primary-dark);
+  font-weight: 800;
+  cursor: not-allowed;
+}
+
+.admin-student-class-entry {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 15px;
+  min-width: 0;
+  min-height: 116px;
+  padding: 19px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--card-bg);
+  color: var(--text-main);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(15, 45, 80, 0.06);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.admin-student-class-entry:hover {
+  border-color: color-mix(in srgb, var(--primary) 60%, var(--border-color));
+  box-shadow: 0 14px 32px rgba(15, 45, 80, 0.12);
+  transform: translateY(-3px);
+}
+
+.admin-student-class-entry:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 35%, transparent);
+  outline-offset: 2px;
+}
+
+.admin-student-class-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 51px;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #38bdf8, #2563eb);
+  color: #fff;
+  font-size: 21px;
+  box-shadow: 0 9px 18px rgba(37, 99, 235, 0.2);
+}
+
+.admin-student-class-icon::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 8px;
+  width: 23px;
+  height: 8px;
+  border-radius: 6px 6px 0 0;
+  background: #38bdf8;
+}
+
+.admin-student-class-copy {
+  min-width: 0;
+}
+
+.admin-student-class-copy > small,
+.admin-student-class-copy > strong,
+.admin-student-class-copy > span {
+  display: block;
+}
+
+.admin-student-class-copy > small {
+  color: var(--primary-dark);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.admin-student-class-copy > strong {
+  margin: 2px 0 4px;
+  overflow: hidden;
+  color: var(--text-main);
+  font-size: 17px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-student-class-copy > span {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.admin-student-class-stats,
+.admin-student-detail-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-student-class-stats > span,
+.admin-student-detail-stats > span {
+  min-width: 48px;
+  padding: 7px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-light);
+  text-align: center;
+}
+
+.admin-student-class-stats b,
+.admin-student-class-stats small,
+.admin-student-detail-stats b,
+.admin-student-detail-stats small {
+  display: block;
+}
+
+.admin-student-class-stats b,
+.admin-student-detail-stats b {
+  color: var(--text-main);
+  font-size: 16px;
+}
+
+.admin-student-class-stats small,
+.admin-student-detail-stats small {
+  color: var(--text-muted);
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.admin-student-class-stats > i {
+  margin-left: 3px;
+  color: var(--primary);
+}
+
+.admin-student-class-detail {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: var(--card-bg);
+}
+
+.admin-student-class-detail-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 17px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-light);
+}
+
+.admin-student-class-detail-nav > span {
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.admin-student-class-detail-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 15px;
+  padding: 23px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--primary-light) 76%, var(--card-bg)), var(--card-bg));
+}
+
+.admin-student-class-detail-header small {
+  color: var(--primary-dark);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.admin-student-class-detail-header h3 {
+  margin: 2px 0;
+  color: var(--text-main);
+  font-size: 20px;
+}
+
+.admin-student-class-detail-header p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.admin-student-class-content {
+  padding: 18px;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin-student-class-content-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px 14px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.admin-student-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+  gap: 13px;
+}
+
+.admin-student-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--bg-light);
+}
+
+.admin-student-card-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+}
+
+.admin-student-card-head img {
+  width: 46px;
+  height: 46px;
+  border: 2px solid var(--card-bg);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(15, 45, 80, 0.12);
+}
+
+.admin-student-card-head h4 {
+  margin: 0 0 3px;
+  overflow: hidden;
+  color: var(--text-main);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-student-card-head p {
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-student-card-data {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.admin-student-card-data > div:last-child {
+  grid-column: 1 / -1;
+}
+
+.admin-student-card-data dt,
+.admin-student-card-data dd {
+  margin: 0;
+}
+
+.admin-student-card-data dt {
+  color: var(--text-muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.admin-student-card-data dd {
+  margin-top: 2px;
+  overflow: hidden;
+  color: var(--text-main);
+  font-size: 11px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-student-card-actions {
+  display: flex;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin-student-class-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  gap: 7px;
+  min-height: 210px;
+  padding: 30px;
+  border: 1px dashed var(--border-color);
+  border-radius: 15px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.admin-student-class-empty i {
+  color: var(--primary);
+  font-size: 30px;
+}
+
+.admin-student-class-empty strong {
+  color: var(--text-main);
+}
+
+.admin-student-class-empty span {
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .admin-student-class-grid,
+  .admin-student-card-list {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-student-class-entry,
+  .admin-student-class-detail-header {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .admin-student-class-stats,
+  .admin-student-detail-stats {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding-left: 70px;
+  }
+
+  .admin-student-class-detail-nav,
+  .admin-student-class-content-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-student-card-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .admin-student-card-head .badge {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

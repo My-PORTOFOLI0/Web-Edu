@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Dashboard - EduSky Learning</title>
+    <script>
+        try {
+            const settings = JSON.parse(localStorage.getItem("edusky_admin_settings") || "null");
+            const dark = settings?.theme === "dark" || (settings?.theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+            document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+        } catch (error) {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/pdf-reader.css?v=20260717-2">
+    <link rel="stylesheet" href="assets/css/admin.css?v=20260915-1">
+    <link rel="stylesheet" href="assets/css/video-player.css?v=20260717-1">
+    <link rel="stylesheet" href="assets/css/logout-confirm.css?v=20260717-1">
+    <link rel="stylesheet" href="assets/css/admin-reports.css?v=20260723-2">
+    <link rel="stylesheet" href="assets/css/admin-settings.css?v=20260719-5">
+    <link rel="stylesheet" href="assets/css/admin-game.css?v=20260722-1">
+    <link rel="stylesheet" href="assets/css/admin-game-classes.css?v=20260722-2">
+    <link rel="stylesheet" href="assets/css/admin-task-classes.css?v=20260722-3">
+    <link rel="stylesheet" href="assets/css/admin-student-classes.css?v=20260722-2">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar" id="adminSidebar" aria-label="Navigasi admin">
+            <div class="logo-admin">
+                <div class="admin-brand-lockup">
+                    <span class="admin-brand-mark">
+                        <img id="adminBrandLogo" src="" alt="" hidden>
+                        <i id="adminBrandFallback" class="fas fa-graduation-cap"></i>
+                    </span>
+                    <span class="admin-brand-copy">
+                        <b id="adminBrandName">EduSky Learning</b>
+                        <small>Dashboard Admin</small>
+                    </span>
+                </div>
+                <button class="sidebar-close" id="closeSidebar" type="button" aria-label="Tutup navigasi admin">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <div class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="modul">
+                        <i class="fas fa-book"></i>
+                        <span>Kelola Modul</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="tugas">
+                        <i class="fas fa-tasks"></i>
+                        <span>Kelola Tugas</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="game">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Kelola Game</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="siswa">
+                        <i class="fas fa-users"></i>
+                        <span>Data Siswa</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="profil">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Profil Siswa</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="laporan">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Laporan</span>
+                        <b class="report-nav-badge" id="reportNavBadge" hidden>0</b>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-page="pengaturan">
+                        <i class="fas fa-cog"></i>
+                        <span>Pengaturan</span>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+
+        <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="Tutup navigasi admin" aria-hidden="true"></button>
+
+        <!-- MAIN CONTENT -->
+        <div class="admin-main">
+            <!-- HEADER -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="toggle-sidebar" id="toggleSidebar" type="button" aria-label="Buka navigasi admin" aria-controls="adminSidebar" aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="header-title" id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <a class="account-switch-link" href="index.html">
+                        <i class="fas fa-user-graduate"></i><span>Masuk sebagai siswa</span>
+                    </a>
+                    <div class="user-profile">
+                        <div class="user-avatar">A</div>
+                        <span class="admin-user-label">Admin</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENT AREA -->
+            <div class="admin-content">
+                <!-- DASHBOARD PAGE -->
+                <div class="page-section active" id="dashboardPage">
+                    <!-- Alert Messages -->
+                    <div id="alertContainer"></div>
+
+                    <!-- Dashboard Stats -->
+                    <div class="dashboard-grid">
+                        <div class="stat-card primary">
+                            <div class="stat-icon"><i class="fas fa-book"></i></div>
+                            <div class="stat-label">Total Modul</div>
+                            <div class="stat-value" id="totalModul">0</div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+                            <div class="stat-label">Total Tugas</div>
+                            <div class="stat-value" id="totalTugas">0</div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-icon"><i class="fas fa-users"></i></div>
+                            <div class="stat-label">Total Siswa</div>
+                            <div class="stat-value" id="totalSiswa">0</div>
+                        </div>
+                        <div class="stat-card danger">
+                            <div class="stat-icon"><i class="fas fa-video"></i></div>
+                            <div class="stat-label">Total Video</div>
+                            <div class="stat-value" id="totalVideo">0</div>
+                        </div>
+                        <div class="stat-card accent">
+                            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-label">Tugas Selesai</div>
+                            <div class="stat-value" id="tugasSelesai">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-percent"></i></div>
+                            <div class="stat-label">Rata-rata Nilai</div>
+                            <div class="stat-value" id="rataRataNilai">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Aktivitas Terbaru</h3>
+                                <p class="card-subtitle">Perbaruan terkini dari sistem</p>
+                            </div>
+                        </div>
+                        <div id="recentActivityContainer">
+                            <p class="text-center text-muted">Tidak ada aktivitas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODUL PAGE -->
+                <div class="page-section" id="modulPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="moduleManagerTitle">Pilih Kelas</h3>
+                                <p class="card-subtitle" id="moduleManagerSubtitle">Masuk ke kelas terlebih dahulu untuk melihat dan menambahkan modul</p>
+                            </div>
+                            <button class="btn btn-primary" id="addModulBtn" disabled>
+                                <i class="fas fa-folder-open"></i> Pilih Kelas Dahulu
+                            </button>
+                        </div>
+
+                        <div class="module-library-note">
+                            <i class="fas fa-layer-group" aria-hidden="true"></i>
+                            <div>
+                                <strong>Modul mengikuti kelas yang sudah dibuat</strong>
+                                <span>Pilih folder kelas, tambahkan modul PDF atau video, lalu publikasikan untuk siswa di kelas tersebut.</span>
+                            </div>
+                        </div>
+
+                        <!-- Search & Filter -->
+                        <div class="search-filter">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchModul" placeholder="Cari modul...">
+                            </div>
+                            <select id="filterSubject" style="padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                                <option value="">Semua Mata Pelajaran</option>
+                                <option value="Matematika">Matematika</option>
+                                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                                <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                <option value="IPAS">IPAS</option>
+                                <option value="PKN">PKN / Pendidikan Pancasila</option>
+                                <option value="Seni">Seni & Budaya</option>
+                                <option value="Pendidikan Agama">Pendidikan Agama</option>
+                                <option value="PJOK">PJOK</option>
+                                <option value="Informatika">Informatika</option>
+                            </select>
+                        </div>
+
+                        <!-- Folder kelas berisi modul -->
+                        <div class="admin-task-class-grid" id="modulClassGrid" aria-live="polite">
+                            <div class="admin-task-class-empty"><i class="fas fa-spinner fa-spin"></i><span>Memuat folder kelas...</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TUGAS PAGE -->
+                <div class="page-section" id="tugasPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="taskManagerTitle">Pilih Kelas</h3>
+                                <p class="card-subtitle" id="taskManagerSubtitle">Masuk ke kelas terlebih dahulu untuk melihat dan menambahkan tugas</p>
+                            </div>
+                            <button class="btn btn-primary" id="addTugasBtn" disabled>
+                                <i class="fas fa-folder-open"></i> Pilih Kelas Dahulu
+                            </button>
+                        </div>
+
+                        <!-- Search & Filter -->
+                        <div class="search-filter">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchTugas" placeholder="Cari kelas, modul, atau mata pelajaran...">
+                            </div>
+                            <select id="filterMapelTugas" style="padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                                <option value="">Semua Mata Pelajaran</option>
+                            </select>
+                        </div>
+
+                        <!-- Folder kelas berisi tugas -->
+                        <div class="admin-task-class-grid" id="tugasClassGrid" aria-live="polite">
+                            <div class="admin-task-class-empty"><i class="fas fa-spinner fa-spin"></i><span>Memuat folder kelas...</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- GAME EDUKASI PAGE -->
+                <div class="page-section" id="gamePage">
+                    <div id="gameAdminApp" aria-live="polite"></div>
+                </div>
+
+                <!-- SISWA PAGE -->
+                <div class="page-section" id="siswaPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="studentManagerTitle">Kelas Siswa</h3>
+                                <p class="card-subtitle" id="studentManagerSubtitle">Buat kelas terlebih dahulu, lalu tambahkan siswa di dalamnya</p>
+                            </div>
+                            <button class="btn btn-primary" id="addSiswaBtn">
+                                <i class="fas fa-plus"></i> Tambah Kelas
+                            </button>
+                        </div>
+
+                        <div class="student-summary-grid">
+                            <div class="student-summary-item">
+                                <span>Total Akun</span>
+                                <strong id="siswaTotalAkun">0</strong>
+                            </div>
+                            <div class="student-summary-item">
+                                <span>Akun Aktif</span>
+                                <strong id="siswaAktifCount">0</strong>
+                            </div>
+                            <div class="student-summary-item">
+                                <span>Akun Nonaktif</span>
+                                <strong id="siswaNonaktifCount">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="search-filter">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchSiswa" placeholder="Cari nama, NIS, username, kelas, atau sekolah...">
+                            </div>
+                            <select id="filterStatusSiswa" style="padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                                <option value="">Semua Status</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="nonaktif">Nonaktif</option>
+                            </select>
+                        </div>
+
+                        <div class="admin-student-class-grid" id="siswaClassGrid" aria-live="polite">
+                            <div class="admin-student-class-empty"><i class="fas fa-spinner fa-spin"></i><span>Memuat kelas siswa...</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROFIL PAGE -->
+                <div class="page-section" id="profilPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Profil Siswa</h3>
+                                <p class="card-subtitle">Edit profil dan informasi siswa</p>
+                            </div>
+                        </div>
+
+                        <div class="search-filter">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchProfilSiswa" placeholder="Cari siswa untuk edit profil...">
+                            </div>
+                        </div>
+
+                        <!-- Profile List -->
+                        <div id="profilListContainer"></div>
+                    </div>
+                </div>
+
+                <!-- LAPORAN PAGE -->
+                <div class="page-section" id="laporanPage">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Pusat Laporan Siswa</h3>
+                                <p class="card-subtitle">Kelola pertanyaan, kendala akun, dan laporan pembelajaran dari siswa.</p>
+                            </div>
+                        </div>
+
+                        <section class="report-section-picker" aria-labelledby="reportSectionPickerTitle">
+                            <div class="report-picker-heading">
+                                <div><span>Pilih laporan</span><h4 id="reportSectionPickerTitle">Buka pusat data yang ingin dikelola</h4></div>
+                                <div class="report-count-legend" aria-label="Keterangan notifikasi">
+                                    <span class="incoming"><i></i> Pesan masuk</span>
+                                    <span class="unread"><i></i> Belum dibaca</span>
+                                    <span class="read"><i></i> Sudah dibaca</span>
+                                </div>
+                            </div>
+
+                            <div class="report-menu-list" role="tablist" aria-label="Jenis laporan">
+                                <button class="report-menu-card active" type="button" role="tab" aria-selected="true" aria-controls="laporan-bantuan" data-tab="laporan-bantuan">
+                                    <span class="report-menu-icon questions"><i class="fas fa-comments"></i></span>
+                                    <span class="report-menu-copy"><strong>Pertanyaan Siswa</strong><small>Pesan bantuan, kendala login, dan pertanyaan pembelajaran.</small></span>
+                                    <span class="report-menu-counts" aria-label="Status pertanyaan siswa">
+                                        <span class="incoming"><b id="reportTabCount">0</b><small>Masuk</small></span>
+                                        <span class="unread" hidden><b id="reportQuestionUnreadCount">0</b><small>Belum dibaca</small></span>
+                                        <span class="read"><b id="reportQuestionReadCount">0</b><small>Sudah dibaca</small></span>
+                                    </span>
+                                    <i class="fas fa-chevron-right report-menu-arrow"></i>
+                                </button>
+
+                                <button class="report-menu-card" type="button" role="tab" aria-selected="false" aria-controls="laporan-nilai" data-tab="laporan-nilai">
+                                    <span class="report-menu-icon grades"><i class="fas fa-chart-column"></i></span>
+                                    <span class="report-menu-copy"><strong>Laporan Nilai</strong><small>Pengumpulan tugas, nilai siswa, dan pekerjaan yang belum dinilai.</small></span>
+                                    <span class="report-menu-counts" aria-label="Status laporan nilai">
+                                        <span class="incoming"><b id="reportGradeTotalCount">0</b><small>Masuk</small></span>
+                                        <span class="unread" hidden><b id="reportGradeUnreadCount">0</b><small>Belum dinilai</small></span>
+                                        <span class="read"><b id="reportGradeReadCount">0</b><small>Sudah dinilai</small></span>
+                                    </span>
+                                    <i class="fas fa-chevron-right report-menu-arrow"></i>
+                                </button>
+
+                                <button class="report-menu-card" type="button" role="tab" aria-selected="false" aria-controls="laporan-kehadiran" data-tab="laporan-kehadiran">
+                                    <span class="report-menu-icon attendance"><i class="fas fa-calendar-check"></i></span>
+                                    <span class="report-menu-copy"><strong>Kehadiran</strong><small>Rekap hadir, izin, sakit, dan alpa seluruh siswa.</small></span>
+                                    <span class="report-menu-counts" aria-label="Status laporan kehadiran">
+                                        <span class="incoming"><b id="reportAttendanceTotalCount">0</b><small>Data</small></span>
+                                        <span class="unread" hidden><b id="reportAttendanceUnreadCount">0</b><small>Baru</small></span>
+                                        <span class="read"><b id="reportAttendanceReadCount">0</b><small>Dilihat</small></span>
+                                    </span>
+                                    <i class="fas fa-chevron-right report-menu-arrow"></i>
+                                </button>
+
+                                <button class="report-menu-card" type="button" role="tab" aria-selected="false" aria-controls="laporan-progres" data-tab="laporan-progres">
+                                    <span class="report-menu-icon progress"><i class="fas fa-arrow-trend-up"></i></span>
+                                    <span class="report-menu-copy"><strong>Progres Pembelajaran</strong><small>Pantau penyelesaian modul dan perkembangan belajar siswa.</small></span>
+                                    <span class="report-menu-counts" aria-label="Status progres pembelajaran">
+                                        <span class="incoming"><b id="reportProgressTotalCount">0</b><small>Data</small></span>
+                                        <span class="unread" hidden><b id="reportProgressUnreadCount">0</b><small>Baru</small></span>
+                                        <span class="read"><b id="reportProgressReadCount">0</b><small>Dilihat</small></span>
+                                    </span>
+                                    <i class="fas fa-chevron-right report-menu-arrow"></i>
+                                </button>
+                            </div>
+                        </section>
+
+                        <div id="laporan-bantuan" class="tab-content active">
+                            <section class="report-summary" aria-label="Ringkasan laporan siswa">
+                                <article><span class="report-summary-icon all"><i class="fas fa-comments"></i></span><div><strong id="reportTotalCount">0</strong><small>Total laporan</small></div></article>
+                                <article><span class="report-summary-icon new"><i class="fas fa-envelope"></i></span><div><strong id="reportNewCount">0</strong><small>Belum dibaca</small></div></article>
+                                <article><span class="report-summary-icon process"><i class="fas fa-spinner"></i></span><div><strong id="reportProcessCount">0</strong><small>Diproses</small></div></article>
+                                <article><span class="report-summary-icon done"><i class="fas fa-circle-check"></i></span><div><strong id="reportDoneCount">0</strong><small>Selesai</small></div></article>
+                            </section>
+
+                            <div class="report-toolbar">
+                                <label class="report-search" for="reportSearch"><i class="fas fa-search"></i><input id="reportSearch" type="search" placeholder="Cari siswa, NIS, subjek, atau pertanyaan..."></label>
+                                <select id="reportStatusFilter" aria-label="Filter status laporan">
+                                    <option value="">Semua status</option>
+                                    <option value="baru">Baru</option>
+                                    <option value="dibaca">Dibaca</option>
+                                    <option value="diproses">Diproses</option>
+                                    <option value="selesai">Selesai</option>
+                                </select>
+                                <button class="btn btn-secondary" id="refreshStudentReports" type="button"><i class="fas fa-rotate"></i> Muat Ulang</button>
+                            </div>
+
+                            <div class="report-table-wrap">
+                                <table class="table report-table">
+                                    <thead><tr><th>Siswa</th><th>Pertanyaan</th><th>Sumber</th><th>Status</th><th>Dikirim</th><th>Aksi</th></tr></thead>
+                                    <tbody id="studentReportTableBody"><tr><td colspan="6" class="text-center text-muted">Memuat laporan siswa...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="laporan-nilai" class="tab-content">
+                            <div class="grade-source-switch" id="gradeSourceSwitch" aria-label="Sumber penilaian">
+                                <button type="button" class="active" data-grade-source="tasks"><i class="fas fa-clipboard-check"></i> Penilaian Tugas</button>
+                                <button type="button" data-grade-source="games"><i class="fas fa-gamepad"></i> Analitik Game</button>
+                            </div>
+
+                            <section class="grade-report-summary" id="taskGradeSummary" aria-label="Ringkasan pengumpulan tugas">
+                                <article><span class="total"><i class="fas fa-inbox"></i></span><div><strong id="gradeSubmissionTotal">0</strong><small>Total pengumpulan</small></div></article>
+                                <article><span class="pending"><i class="fas fa-hourglass-half"></i></span><div><strong id="gradeSubmissionPending">0</strong><small>Belum dinilai</small></div></article>
+                                <article><span class="scored"><i class="fas fa-circle-check"></i></span><div><strong id="gradeSubmissionScored">0</strong><small>Sudah dinilai</small></div></article>
+                            </section>
+
+                            <section class="grade-report-summary" id="gameGradeSummary" aria-label="Ringkasan hasil game" hidden>
+                                <article><span class="total"><i class="fas fa-gamepad"></i></span><div><strong id="gameAttemptTotal">0</strong><small>Total permainan</small></div></article>
+                                <article><span class="pending"><i class="fas fa-bullseye"></i></span><div><strong id="gameAccuracyAverage">0%</strong><small>Rata-rata akurasi</small></div></article>
+                                <article><span class="scored"><i class="fas fa-trophy"></i></span><div><strong id="gamePassTotal">0</strong><small>Berhasil lulus</small></div></article>
+                            </section>
+
+                            <div class="grade-report-toolbar">
+                                <label for="gradeReportSearch"><i class="fas fa-search"></i><input id="gradeReportSearch" type="search" placeholder="Cari kelas, siswa, mata pelajaran, tugas, atau game..."></label>
+                                <button class="btn btn-secondary" id="refreshGradeReports" type="button"><i class="fas fa-rotate"></i> Muat Ulang</button>
+                            </div>
+
+                            <nav class="grade-report-breadcrumb" id="gradeReportBreadcrumb" aria-label="Lokasi laporan nilai"></nav>
+                            <div class="grade-report-explorer" id="gradeReportExplorer" aria-live="polite">
+                                <div class="grade-report-empty"><i class="fas fa-spinner fa-spin"></i><strong>Memuat laporan nilai...</strong></div>
+                            </div>
+                            <nav class="grade-report-breadcrumb" id="gameGradeBreadcrumb" aria-label="Lokasi analitik game" hidden></nav>
+                            <div class="grade-report-explorer" id="gameGradeExplorer" aria-live="polite" hidden>
+                                <div class="grade-report-empty"><i class="fas fa-spinner fa-spin"></i><strong>Memuat analitik game...</strong></div>
+                            </div>
+                        </div>
+
+                        <div id="laporan-kehadiran" class="tab-content">
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Siswa</th>
+                                            <th>Hadir</th>
+                                            <th>Alpa</th>
+                                            <th>Sakit</th>
+                                            <th>Izin</th>
+                                            <th>Persentase</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="kehadiranTableBody">
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">Tidak ada data kehadiran</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="laporan-progres" class="tab-content">
+                            <div id="progresContainer"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PENGATURAN PAGE -->
+                <div class="page-section" id="pengaturanPage">
+                    <section class="settings-hero">
+                        <div class="settings-hero-icon"><i class="fas fa-sliders"></i></div>
+                        <div>
+                            <span class="settings-eyebrow">Konfigurasi dashboard</span>
+                            <h2>Pengaturan EduSky</h2>
+                            <p>Atur identitas aplikasi, tampilan Admin, kanal bantuan, dan cadangan konfigurasi dari satu tempat.</p>
+                        </div>
+                        <div class="settings-save-state" id="settingsSaveState"><span></span><div><strong>Semua tersimpan</strong><small id="settingsLastSaved">Belum ada perubahan</small></div></div>
+                    </section>
+
+                    <nav class="settings-category-menu" aria-label="Kategori pengaturan" role="tablist">
+                        <button class="settings-category-card is-active" type="button" role="tab" aria-selected="true" aria-controls="settingsGeneral" data-settings-target="settingsGeneral">
+                            <span class="settings-panel-icon blue"><i class="fas fa-building"></i></span>
+                            <span><strong>Identitas Platform</strong><small>Nama aplikasi, tahun ajaran, dan administrator</small></span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="settings-category-card" type="button" role="tab" aria-selected="false" aria-controls="settingsAppearance" data-settings-target="settingsAppearance">
+                            <span class="settings-panel-icon purple"><i class="fas fa-palette"></i></span>
+                            <span><strong>Tampilan Dashboard</strong><small>Tema terang, gelap, atau otomatis</small></span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="settings-category-card" type="button" role="tab" aria-selected="false" aria-controls="settingsHelp" data-settings-target="settingsHelp">
+                            <span class="settings-panel-icon green"><i class="fab fa-whatsapp"></i></span>
+                            <span><strong>Bantuan Siswa</strong><small>Atur tujuan WhatsApp pusat bantuan</small></span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="settings-category-card" type="button" role="tab" aria-selected="false" aria-controls="settingsBackup" data-settings-target="settingsBackup">
+                            <span class="settings-panel-icon orange"><i class="fas fa-database"></i></span>
+                            <span><strong>Cadangan & Reset</strong><small>Export, import, dan pulihkan pengaturan</small></span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+
+                    <div class="settings-content-shell">
+                            <section class="settings-panel settings-tab-panel is-active" id="settingsGeneral" role="tabpanel" data-settings-panel>
+                                <header class="settings-panel-heading">
+                                    <span class="settings-panel-icon blue"><i class="fas fa-building"></i></span>
+                                    <div><h3>Identitas Platform</h3><p>Informasi utama yang digunakan pada dashboard EduSky.</p></div>
+                                </header>
+                                <div class="settings-general-layout">
+                                    <div class="settings-form-grid">
+                                        <div class="settings-logo-field wide">
+                                            <div class="settings-logo-preview"><img id="settingsLogoPreview" src="" alt="Pratinjau logo aplikasi" hidden><i id="settingsLogoFallback" class="fas fa-graduation-cap"></i></div>
+                                            <div class="settings-logo-copy"><strong>Logo aplikasi</strong><small>Gunakan JPEG, PNG, atau WebP. Gambar akan diperkecil otomatis maksimal 512×512.</small></div>
+                                            <div class="settings-logo-actions">
+                                                <label for="logoAplikasiInput"><i class="fas fa-image"></i> Pilih Logo<input id="logoAplikasiInput" type="file" accept="image/jpeg,image/png,image/webp" hidden></label>
+                                                <button id="removeLogoButton" type="button"><i class="fas fa-trash"></i> Hapus</button>
+                                            </div>
+                                            <div class="settings-logo-adjustments" id="settingsLogoAdjustments" aria-label="Pengaturan posisi logo">
+                                                <div class="settings-logo-adjustment">
+                                                    <label for="logoScale"><span>Ukuran</span><output id="logoScaleValue" for="logoScale">100%</output></label>
+                                                    <input id="logoScale" type="range" min="50" max="300" step="5" value="100">
+                                                </div>
+                                                <div class="settings-logo-adjustment">
+                                                    <label for="logoPositionX"><span>Posisi horizontal</span><output id="logoPositionXValue" for="logoPositionX">Tengah</output></label>
+                                                    <input id="logoPositionX" type="range" min="-100" max="100" step="1" value="0">
+                                                </div>
+                                                <div class="settings-logo-adjustment">
+                                                    <label for="logoPositionY"><span>Posisi vertikal</span><output id="logoPositionYValue" for="logoPositionY">Tengah</output></label>
+                                                    <input id="logoPositionY" type="range" min="-100" max="100" step="1" value="0">
+                                                </div>
+                                                <button id="resetLogoPosition" class="settings-logo-reset" type="button"><i class="fas fa-arrows-to-dot"></i> Pusatkan</button>
+                                            </div>
+                                        </div>
+                                        <label class="settings-field wide" for="namaAplikasi"><span>Nama aplikasi</span><small>Nama yang tampil sebagai identitas platform.</small><div class="settings-input-wrap"><i class="fas fa-graduation-cap"></i><input type="text" id="namaAplikasi" maxlength="80" value="EduSky Learning"></div></label>
+                                        <label class="settings-field" for="tahunAjaran"><span>Tahun ajaran</span><small>Gunakan format tahun awal/tahun akhir.</small><div class="settings-input-wrap"><i class="far fa-calendar"></i><input type="text" id="tahunAjaran" maxlength="20" value="2026/2027" placeholder="2026/2027"></div></label>
+                                        <label class="settings-field" for="namaAdmin"><span>Nama administrator</span><small>Label yang tampil di header dashboard.</small><div class="settings-input-wrap"><i class="far fa-user"></i><input type="text" id="namaAdmin" maxlength="80" value="Administrator"></div></label>
+                                    </div>
+                                    <aside class="settings-preview-card">
+                                        <span class="settings-preview-label">Pratinjau</span>
+                                        <div class="settings-preview-brand"><span><img id="settingsPreviewLogo" src="" alt="" hidden><i id="settingsPreviewLogoFallback" class="fas fa-graduation-cap"></i></span><div><strong id="settingsPreviewName">EduSky Learning</strong><small>Administrator Dashboard</small></div></div>
+                                        <dl><div><dt>Tahun ajaran</dt><dd id="settingsPreviewYear">2026/2027</dd></div><div><dt>Administrator</dt><dd id="settingsPreviewAdmin">Administrator</dd></div><div><dt>Tema</dt><dd id="settingsPreviewTheme">Terang</dd></div></dl>
+                                    </aside>
+                                </div>
+                            </section>
+
+                            <section class="settings-panel settings-tab-panel" id="settingsAppearance" role="tabpanel" data-settings-panel hidden>
+                                <header class="settings-panel-heading">
+                                    <span class="settings-panel-icon purple"><i class="fas fa-palette"></i></span>
+                                    <div><h3>Tampilan Dashboard</h3><p>Pilih tema yang nyaman untuk mengelola pembelajaran.</p></div>
+                                </header>
+                                <div class="settings-theme-grid" role="radiogroup" aria-label="Tema dashboard">
+                                    <label class="settings-theme-card"><input type="radio" name="adminTheme" value="light" checked><span class="settings-theme-preview light"><i></i><b></b><b></b><b></b></span><span><strong>Terang</strong><small>Bersih dan cerah</small></span><i class="fas fa-circle-check"></i></label>
+                                    <label class="settings-theme-card"><input type="radio" name="adminTheme" value="dark"><span class="settings-theme-preview dark"><i></i><b></b><b></b><b></b></span><span><strong>Gelap</strong><small>Nyaman di malam hari</small></span><i class="fas fa-circle-check"></i></label>
+                                    <label class="settings-theme-card"><input type="radio" name="adminTheme" value="system"><span class="settings-theme-preview system"><i></i><b></b><b></b><b></b></span><span><strong>Otomatis</strong><small>Ikuti perangkat</small></span><i class="fas fa-circle-check"></i></label>
+                                </div>
+                            </section>
+
+                            <section class="settings-panel settings-tab-panel" id="settingsHelp" role="tabpanel" data-settings-panel hidden>
+                                <header class="settings-panel-heading">
+                                    <span class="settings-panel-icon green"><i class="fab fa-whatsapp"></i></span>
+                                    <div><h3>Kanal Bantuan Siswa</h3><p>Nomor ini digunakan tombol WhatsApp pada halaman Profil dan Login siswa.</p></div>
+                                </header>
+                                <div class="settings-help-grid">
+                                    <label class="settings-field" for="adminWhatsapp"><span>Nomor WhatsApp Admin</span><small>Gunakan format internasional tanpa tanda +.</small><div class="settings-input-wrap whatsapp"><span>+</span><input type="tel" id="adminWhatsapp" inputmode="numeric" maxlength="15" placeholder="6281234567890"></div></label>
+                                    <div class="settings-whatsapp-preview"><i class="fab fa-whatsapp"></i><div><span>Pratinjau tujuan bantuan</span><strong id="whatsappPreview">Belum diatur</strong><small>Siswa akan diarahkan ke nomor ini.</small></div><button type="button" id="testWhatsapp"><i class="fas fa-arrow-up-right-from-square"></i> Uji</button></div>
+                                </div>
+                                <p class="settings-note"><i class="fas fa-cloud-arrow-up"></i> Nomor bantuan disimpan ke Supabase dan otomatis digunakan pada halaman Login serta Profil siswa di seluruh perangkat.</p>
+                            </section>
+
+                            <section class="settings-panel settings-backup-panel settings-tab-panel" id="settingsBackup" role="tabpanel" data-settings-panel hidden>
+                                <header class="settings-panel-heading compact"><span class="settings-panel-icon orange"><i class="fas fa-database"></i></span><div><h3>Cadangan</h3><p>Simpan konfigurasi dashboard.</p></div></header>
+                                <div class="settings-backup-layout">
+                                    <div class="settings-backup-actions">
+                                        <button type="button" id="exportDataBtn"><i class="fas fa-file-arrow-down"></i><span><strong>Export konfigurasi</strong><small>Unduh file JSON</small></span><i class="fas fa-chevron-right"></i></button>
+                                        <button type="button" id="importDataBtn"><i class="fas fa-file-arrow-up"></i><span><strong>Import konfigurasi</strong><small>Pulihkan dari JSON</small></span><i class="fas fa-chevron-right"></i></button>
+                                        <input type="file" id="importFile" accept="application/json,.json" hidden>
+                                    </div>
+                                    <div class="settings-danger-zone">
+                                        <div><span><i class="fas fa-triangle-exclamation"></i></span><div><strong>Reset pengaturan</strong><p>Kembalikan konfigurasi dashboard pada nilai awal. Data siswa dan modul tidak akan dihapus.</p></div></div>
+                                        <button type="button" id="resetAllBtn">Reset Pengaturan</button>
+                                    </div>
+                                </div>
+                            </section>
+                    </div>
+
+                    <footer class="settings-save-bar">
+                        <div><span id="settingsDirtyDot"></span><p id="settingsChangeText">Tidak ada perubahan yang belum disimpan.</p></div>
+                        <div><button class="btn btn-secondary" type="button" id="resetPengaturan"><i class="fas fa-rotate-left"></i> Batalkan</button><button class="btn btn-primary" type="button" id="savePengaturan"><i class="fas fa-floppy-disk"></i> Simpan Perubahan</button></div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal report-detail-modal" id="studentReportModal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div><span class="report-modal-kicker">Detail laporan siswa</span><h2 class="modal-title" id="studentReportModalTitle">Pertanyaan Siswa</h2></div>
+                <button class="modal-close" type="button" data-report-close aria-label="Tutup detail laporan"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <section class="report-student-profile">
+                    <div class="report-student-avatar"><img id="reportStudentPhoto" src="" alt="Foto siswa" hidden><span id="reportStudentInitials">SW</span></div>
+                    <div><span>Pengirim laporan</span><h3 id="reportStudentName">Siswa</h3><p id="reportStudentAccount">-</p></div>
+                    <span class="report-account-status" id="reportAccountStatus">Data login</span>
+                </section>
+
+                <dl class="report-profile-grid">
+                    <div><dt>NIS</dt><dd id="reportStudentNis">-</dd></div>
+                    <div><dt>Username</dt><dd id="reportStudentUsername">-</dd></div>
+                    <div><dt>Jenjang/Kelas</dt><dd id="reportStudentClass">-</dd></div>
+                    <div><dt>Sekolah</dt><dd id="reportStudentSchool">-</dd></div>
+                    <div><dt>Kontak</dt><dd id="reportStudentContact">-</dd></div>
+                    <div><dt>Login terakhir</dt><dd id="reportStudentLastLogin">-</dd></div>
+                    <div><dt>Akun dibuat</dt><dd id="reportStudentAccountCreated">-</dd></div>
+                    <div><dt>Profil diperbarui</dt><dd id="reportStudentUpdated">-</dd></div>
+                </dl>
+
+                <section class="report-question-card">
+                    <div class="report-question-meta"><span id="reportQuestionCategory">Lainnya</span><time id="reportQuestionDate">-</time></div>
+                    <h3 id="reportQuestionSubject">Pertanyaan siswa</h3>
+                    <p id="reportQuestionMessage"></p>
+                </section>
+
+                <div class="report-response-grid">
+                    <label><span>Status penanganan</span><select id="reportDetailStatus"><option value="baru">Baru</option><option value="dibaca">Dibaca</option><option value="diproses">Diproses</option><option value="selesai">Selesai</option></select></label>
+                    <label class="wide"><span>Balasan untuk siswa</span><textarea id="reportAdminReply" rows="5" maxlength="3000" placeholder="Tuliskan jawaban atau langkah penyelesaian. Balasan akan terlihat di riwayat laporan siswa."></textarea><small>Maksimal 3000 karakter</small></label>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-report-close>Tutup</button><button class="btn btn-primary" type="button" id="saveStudentReport"><i class="fas fa-floppy-disk"></i> Simpan Penanganan</button></div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modul Modal -->
+    <div class="modal" id="modulModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modulModalTitle">Tambah Modul</h2>
+                <button class="modal-close" data-modal="modulModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="modulForm" autocomplete="off">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modulNama">Judul Modul *</label>
+                            <input type="text" id="modulNama" maxlength="180" placeholder="Contoh: Pecahan Sederhana" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modulSubject">Mata Pelajaran *</label>
+                            <select id="modulSubject" required>
+                                <option value="">Pilih Mata Pelajaran</option>
+                                <option value="Matematika">Matematika</option>
+                                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                                <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                <option value="IPAS">IPAS</option>
+                                <option value="PKN">PKN / Pendidikan Pancasila</option>
+                                <option value="Seni">Seni Budaya</option>
+                                <option value="Pendidikan Agama">Pendidikan Agama</option>
+                                <option value="PJOK">PJOK</option>
+                                <option value="Informatika">Informatika</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modulKelas">Kelas</label>
+                            <input type="text" id="modulKelas" maxlength="30" required readonly placeholder="Kelas dipilih dari folder">
+                            <small class="form-hint">Kelas ditentukan dari folder yang dipilih.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modulDurasi">Estimasi Membaca (menit)</label>
+                            <input type="number" id="modulDurasi" min="1" max="600" value="15">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modulDeskripsi">Deskripsi</label>
+                        <textarea id="modulDeskripsi" maxlength="1200" rows="4" placeholder="Tuliskan ringkasan materi dan tujuan pembelajaran..."></textarea>
+                    </div>
+
+                    <div class="module-content-grid">
+                        <div class="module-upload-card">
+                            <div class="module-upload-heading">
+                                <i class="fas fa-file-pdf"></i>
+                                <div>
+                                    <strong>Modul PDF *</strong>
+                                    <small>Wajib, maksimal 20 MB</small>
+                                </div>
+                            </div>
+                            <label class="module-file-picker" for="modulPdfFile">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span id="modulPdfLabel">Pilih file PDF</span>
+                                <input type="file" id="modulPdfFile" accept="application/pdf,.pdf">
+                            </label>
+                            <div id="modulCurrentPdf" class="module-current-file" hidden></div>
+                        </div>
+
+                        <div class="module-upload-card youtube">
+                            <div class="module-upload-heading">
+                                <i class="fab fa-youtube"></i>
+                                <div>
+                                    <strong>Video YouTube</strong>
+                                    <small>Opsional sebagai pendamping</small>
+                                </div>
+                            </div>
+                            <label for="modulYoutubeUrl">Link YouTube</label>
+                            <input type="url" id="modulYoutubeUrl" placeholder="https://youtu.be/...">
+                            <div id="modulYoutubePreview" class="module-youtube-preview" hidden></div>
+                        </div>
+                    </div>
+
+                    <p class="form-hint module-form-hint">
+                        <i class="fas fa-info-circle"></i>
+                        File PDF wajib agar modul tampil di Perpustakaan Modul siswa. Video YouTube bersifat opsional.
+                    </p>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="modulAktif" checked>
+                            <span>Publikasikan agar langsung terlihat oleh siswa</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="modulModal">Batal</button>
+                <button class="btn btn-primary" id="saveModulBtn">Simpan Modul</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Tugas Modal -->
+    <div class="modal" id="tugasModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="tugasModalTitle">Tambah Tugas</h2>
+                <button class="modal-close" data-modal="tugasModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="tugasForm">
+                    <div class="form-group">
+                        <label>Judul Tugas *</label>
+                        <input type="text" id="tugasJudul" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Modul terkait (opsional)</label>
+                        <select id="tugasModul"><option value="">Tanpa modul tertentu</option></select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mata Pelajaran *</label>
+                            <input type="text" id="tugasMapel" maxlength="80" required placeholder="Contoh: Matematika">
+                        </div>
+                        <div class="form-group">
+                            <label>Kelas tujuan *</label>
+                            <input type="text" id="tugasKelas" list="tugasKelasOptions" maxlength="30" required placeholder="Contoh: 5A">
+                            <datalist id="tugasKelasOptions"></datalist>
+                            <small class="form-hint">Hanya siswa di kelas ini yang dapat melihat tugas.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Deadline *</label>
+                            <input type="datetime-local" id="tugasDeadline" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nilai Maksimal</label>
+                            <input type="number" id="tugasNilaiMax" value="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi Tugas</label>
+                        <textarea id="tugasDeskripsi"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="tugasAktif" checked>
+                            <span>Tugas Aktif</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="tugasModal">Batal</button>
+                <button class="btn btn-primary" id="saveTugasBtn">Simpan Tugas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Daftar pengumpulan dan penilaian tugas -->
+    <div class="modal submission-modal" id="pengumpulanModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="pengumpulanModalTitle">Pengumpulan Tugas</h2>
+                    <p class="card-subtitle" id="pengumpulanModalSubtitle">Nilai dan berikan umpan balik kepada siswa.</p>
+                </div>
+                <button class="modal-close" id="closePengumpulanModal" type="button" aria-label="Tutup daftar pengumpulan"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="pengumpulanList" class="submission-list">
+                    <p class="text-center text-muted">Memuat pengumpulan...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tambah Kelas Siswa Modal -->
+    <div class="modal" id="kelasSiswaModal">
+        <div class="modal-content student-class-modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Tambah Kelas</h2>
+                    <p class="card-subtitle">Setelah kelas dibuat, tambahkan siswa dari dalam kelas tersebut.</p>
+                </div>
+                <button class="modal-close" type="button" data-class-modal-close aria-label="Tutup form kelas"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="kelasSiswaForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="kelasSiswaNama">Nama Kelas *</label>
+                        <input type="text" id="kelasSiswaNama" maxlength="30" placeholder="Contoh: 5A" required>
+                        <small class="form-hint">Nama kelas harus unik dan akan digunakan pada akun siswa.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="kelasSiswaJenjang">Jenjang *</label>
+                        <select id="kelasSiswaJenjang" required>
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA">SMA</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-class-modal-close>Batal</button>
+                <button class="btn btn-primary" type="button" id="saveKelasSiswaBtn"><i class="fas fa-save"></i> Simpan Kelas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Siswa Modal -->
+    <div class="modal" id="siswaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="siswaModalTitle">Tambah Siswa</h2>
+                <button class="modal-close" data-modal="siswaModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="siswaForm" autocomplete="off">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Lengkap *</label>
+                            <input type="text" id="siswaNama" required maxlength="150">
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor Induk Siswa (NIS) *</label>
+                            <input type="text" id="siswaNIS" required maxlength="50">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Username *</label>
+                            <input type="text" id="siswaUsername" required maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label id="siswaPasswordLabel">Password *</label>
+                            <input type="password" id="siswaPassword" minlength="6" autocomplete="new-password">
+                            <small class="form-hint" id="siswaPasswordHint">Minimal 6 karakter.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jenjang *</label>
+                            <select id="siswaJenjang" required>
+                                <option value="SD">SD</option>
+                                <option value="SMP">SMP</option>
+                                <option value="SMA">SMA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kelas</label>
+                            <input type="text" id="siswaKelas" maxlength="30" placeholder="Contoh: 5A">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sekolah</label>
+                        <input type="text" id="siswaSekolah" maxlength="200">
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL Foto Profil</label>
+                        <input type="url" id="siswaFoto" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="siswaAktif" checked>
+                            <span>Akun Siswa Aktif</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="siswaModal">Batal</button>
+                <button class="btn btn-primary" id="saveSiswaBtn">Simpan Siswa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modul Tanpa Meninggalkan Dashboard -->
+    <div class="modal module-preview-modal" id="modulPreviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="modulPreviewTitle">Preview Modul</h2>
+                    <p class="card-subtitle">PDF dan video diputar langsung di dashboard</p>
+                </div>
+                <div class="module-preview-actions">
+                    <button type="button" class="btn btn-primary pdf-download-button" id="modulPreviewDownload" hidden>
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="modulPreviewFullscreen">
+                        <i class="fas fa-expand"></i> Perbesar
+                    </button>
+                    <button type="button" class="modal-close" id="modulPreviewClose" aria-label="Tutup preview">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="module-preview-tabs" id="modulPreviewTabs"></div>
+
+                <div class="module-preview-frame" id="modulAdminPdfWrap" hidden>
+                    <div class="edusky-pdf-status" id="modulAdminPdfStatus">Menyiapkan pembaca PDF…</div>
+                    <div id="modulAdminPdfViewer" aria-label="Preview PDF modul"></div>
+                </div>
+
+                <div class="module-preview-frame video edusky-video-shell" id="modulAdminYoutubeWrap" hidden>
+                    <div class="edusky-video-poster" id="modulAdminYoutubePoster">
+                        <img class="edusky-video-poster-image" id="modulAdminYoutubePosterImage" src="" alt="Sampul video modul">
+                        <div class="edusky-video-glass">
+                            <strong id="modulAdminYoutubePosterTitle">Video Modul</strong>
+                            <p>Putar video tanpa meninggalkan dashboard.</p>
+                            <button type="button" class="edusky-video-play" id="modulAdminYoutubePlay">
+                                <span class="edusky-video-play-icon">▶</span>
+                                Tonton Sekarang
+                            </button>
+                        </div>
+                    </div>
+                    <iframe
+                        id="modulAdminYoutubeViewer"
+                        title="Preview video YouTube"
+                        sandbox="allow-scripts allow-same-origin allow-presentation"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        hidden
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/pdf-reader.js?v=20260717-2"></script>
+    <script src="assets/js/youtube-player.js?v=20260717-1"></script>
+    <script src="assets/js/logout-confirm.js?v=20260717-1"></script>
+    <script src="assets/js/admin.js?v=20260915-1"></script>
+    <script src="assets/js/admin-modul.js?v=20260722-4"></script>
+    <script src="assets/js/admin-tugas.js?v=20260723-1"></script>
+    <script src="assets/js/admin-reports.js?v=20260719-7"></script>
+    <script src="assets/js/admin-grade-reports.js?v=20260723-4"></script>
+    <script src="assets/js/admin-game-grade-reports.js?v=20260723-1"></script>
+    <script src="assets/js/admin-settings.js?v=20260915-1"></script>
+    <script src="assets/js/game-store.js?v=20260723-3"></script>
+    <script src="assets/js/admin-game.js?v=20260723-3"></script>
+</body>
+</html>
